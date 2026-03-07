@@ -72,12 +72,13 @@ export default function Skills() {
                     cursor: default;
                     transition: all 0.3s ease;
                 }
-                .skills-icon { font-size: 1.75rem; }
+                .skills-icon { font-size: 2.25rem; display: flex; justify-content: center; align-items: center; line-height: 1; }
+                .skills-icon img, .skills-icon svg { width: 1em; height: 1em; object-fit: contain; }
                 @media (max-width: 767px) {
                     .skills-section { padding-top: 60px !important; padding-bottom: 60px !important; }
                     .skills-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 12px !important; }
                     .skills-card { padding: 16px !important; }
-                    .skills-icon { font-size: 1.5rem !important; }
+                    .skills-icon { font-size: 1.75rem !important; }
                 }
                 @media (max-width: 479px) {
                     .skills-grid { grid-template-columns: repeat(2, 1fr) !important; }
