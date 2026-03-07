@@ -16,7 +16,7 @@ export default function Projects() {
                 <div ref={headerRef} className="reveal projects-header">
                     <div>
                         <p className="section-label">My work</p>
-                        <h2 className="section-title" style={{ marginBottom: 8 }}>Featured Projects</h2>
+                        <h2 className="section-title" style={{ marginBottom: 8 }}>Projects</h2>
                         <p style={{ fontSize: 'clamp(0.875rem, 2.5vw, 1.125rem)', color: 'var(--text-secondary)', maxWidth: 400 }}>
                             Handpicked work that showcases my abilities
                         </p>

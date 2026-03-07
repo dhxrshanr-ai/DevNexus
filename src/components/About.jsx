@@ -59,18 +59,17 @@ export default function About() {
                 </div>
 
                 {/* Text */}
-                <div ref={textRef} className="reveal" style={{ maxWidth: 650, margin: '0 auto', textAlign: 'center' }}>
+                <div ref={textRef} className="reveal about-desc-container">
                     <p style={{ color: 'var(--text-secondary)', fontSize: 'clamp(0.9375rem, 2.5vw, 1.0625rem)', lineHeight: 1.8, marginBottom: 24 }}>
                         I'm <strong style={{ color: 'var(--text-primary)' }}>Dharshan</strong>, a
-                        motivated fresher frontend developer from{' '}
-                        <strong style={{ color: 'var(--text-primary)' }}>Theni, India</strong>.
+                        motivated Full Stack developer.{' '}
                         I specialize in React, JavaScript, and modern CSS — transforming complex
-                        problems into clean, intuitive interfaces.
+                        problems into clean interfaces.
                     </p>
                     <p style={{ color: 'var(--text-secondary)', fontSize: 'clamp(0.9375rem, 2.5vw, 1.0625rem)', lineHeight: 1.8 }}>
-                        Fresh out of college and hungry to build, I bring energy, a strong
-                        foundation, and a passion for creating exceptional user experiences. I
-                        believe great design is invisible — it just works.
+                        A motivated developer fresh out of college with a strong foundation in
+                        software development, modern web technologies, and AI frameworks. Passionate
+                        about building smart, scalable applications where great design feels effortless.
                     </p>
                 </div>
 
@@ -105,6 +104,11 @@ export default function About() {
             </div>
 
             <style>{`
+                .about-desc-container {
+                    max-width: 650px;
+                    margin: 0 auto;
+                    text-align: center;
+                }
                 .about-stats-grid {
                     display: grid;
                     grid-template-columns: repeat(4, 1fr);
@@ -122,6 +126,9 @@ export default function About() {
                 }
                 @media (max-width: 767px) {
                     .about-section { padding-top: 60px !important; padding-bottom: 60px !important; }
+                    .about-desc-container {
+                        text-align: left;
+                    }
                     .about-stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 16px !important; }
                     .about-stat-card { padding: 20px !important; }
                 }

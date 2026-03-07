@@ -1,4 +1,5 @@
 import { FaServer } from "react-icons/fa6";
+import { SiNextdotjs } from "react-icons/si";
 
 export const skills = [
     {
@@ -33,7 +34,7 @@ export const skills = [
     },
     {
         name: 'Next.js',
-        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" alt="Next.js" width="36" height="36" style={{ filter: 'brightness(0) invert(1)' }} />,
+        icon: <SiNextdotjs size={36} color="var(--text-primary)" />,
         category: 'Framework'
     },
     {
