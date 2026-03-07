@@ -128,7 +128,12 @@ export default function About() {
                 @media (max-width: 767px) {
                     .about-section { padding-top: 60px !important; padding-bottom: 60px !important; }
                     .about-desc-container {
-                        text-align: justify;
+                        text-align: center;
+                    }
+                    .about-paragraph {
+                        text-align: center;
+                        hyphens: auto;
+                        word-break: break-word;
                     }
                     .about-stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 16px !important; }
                     .about-stat-card { padding: 20px !important; }
