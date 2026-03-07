@@ -35,7 +35,7 @@ export default function Projects() {
                 <div ref={gridRef} className="reveal">
                     <div className="projects-grid">
                         {projects.map((project) => (
-                            <div key={project.id} className="reveal-stagger group projects-card">
+                            <div key={project.id} className="reveal-stagger group projects-card card card-brackets">
                                 {/* Image */}
                                 <div className="projects-card-img">
                                     <img
@@ -47,7 +47,7 @@ export default function Projects() {
                                     />
                                     <div
                                         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center gap-4"
-                                        style={{ background: 'rgba(10,10,10,0.7)' }}
+                                        style={{ background: 'rgba(2,7,19,0.94)' }}
                                     >
 
                                         <a href={project.sourceUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ fontSize: '0.75rem', padding: '8px 16px' }}>
@@ -68,11 +68,7 @@ export default function Projects() {
                                         {project.tags.map((tag) => (
                                             <span
                                                 key={tag}
-                                                style={{
-                                                    fontSize: '0.625rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase',
-                                                    padding: '4px 12px', borderRadius: 9999,
-                                                    background: 'rgba(201,168,76,0.1)', color: 'var(--accent)', border: '1px solid rgba(201,168,76,0.2)',
-                                                }}
+                                                className="tag-badge"
                                             >
                                                 {tag}
                                             </span>
@@ -106,16 +102,8 @@ export default function Projects() {
                     margin: 0 auto;
                 }
                 .projects-card {
-                    background: var(--bg-card);
-                    border: 1px solid var(--border);
                     border-radius: 12px;
                     overflow: hidden;
-                    transition: all 0.5s ease;
-                }
-                .projects-card:hover {
-                    border-color: var(--accent);
-                    transform: translateY(-6px);
-                    box-shadow: 0 20px 60px rgba(201,168,76,0.08);
                 }
                 .projects-card-img {
                     position: relative;

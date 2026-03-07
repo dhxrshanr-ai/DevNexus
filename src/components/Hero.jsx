@@ -18,7 +18,6 @@ export default function Hero() {
             id="hero"
             className="hero-section"
             style={{
-                background: 'var(--bg-primary)',
                 minHeight: '100vh',
                 display: 'flex',
                 alignItems: 'center',
@@ -33,16 +32,18 @@ export default function Hero() {
                 style={{
                     position: 'absolute', top: '25%', left: -128,
                     width: 384, height: 384, borderRadius: '50%',
-                    opacity: 0.2, filter: 'blur(120px)',
-                    background: 'var(--accent)', pointerEvents: 'none',
+                    opacity: 0.24, filter: 'blur(120px)',
+                    background: 'radial-gradient(circle, rgba(0,212,255,0.7) 0, transparent 60%)',
+                    pointerEvents: 'none',
                 }}
             />
             <div
                 style={{
                     position: 'absolute', bottom: '25%', right: -128,
                     width: 320, height: 320, borderRadius: '50%',
-                    opacity: 0.1, filter: 'blur(100px)',
-                    background: 'var(--accent)', pointerEvents: 'none',
+                    opacity: 0.14, filter: 'blur(100px)',
+                    background: 'radial-gradient(circle, rgba(0,102,255,0.7) 0, transparent 60%)',
+                    pointerEvents: 'none',
                 }}
             />
 
@@ -62,13 +63,13 @@ export default function Hero() {
 
                 {/* Name */}
                 <h1
+                    className="hero-title-gradient"
                     style={{
                         fontSize: 'clamp(2.5rem, 10vw, 4.5rem)',
                         fontWeight: 900,
                         textTransform: 'uppercase',
                         lineHeight: 1,
-                        letterSpacing: '-1px',
-                        color: 'var(--text-primary)',
+                        letterSpacing: '0.2em',
                         marginBottom: 32,
                         transition: 'all 0.7s ease 0.15s',
                         opacity: loaded ? 1 : 0,
@@ -128,11 +129,11 @@ export default function Hero() {
                         opacity: loaded ? 1 : 0,
                     }}
                 >
-                    <span style={{ fontSize: '0.75rem', fontWeight: 500, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--text-secondary)' }}>
+                    <span className="hero-scroll-indicator-label">
                         Scroll to explore
                     </span>
-                    <div style={{ width: 20, height: 32, borderRadius: 9999, border: '2px solid var(--text-secondary)', display: 'flex', justifyContent: 'center', paddingTop: 4 }}>
-                        <div className="animate-bounce" style={{ width: 4, height: 8, borderRadius: 9999, background: 'var(--accent)' }} />
+                    <div className="hero-scroll-shell">
+                        <div className="hero-scroll-dot animate-bounce" />
                     </div>
                 </div>
             </div>

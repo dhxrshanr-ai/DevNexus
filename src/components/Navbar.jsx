@@ -58,18 +58,7 @@ export default function Navbar() {
     return (
         <>
             <nav
-                style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    zIndex: 1000,
-                    background: scrolled ? 'rgba(10,10,10,0.95)' : 'transparent',
-                    backdropFilter: scrolled ? 'blur(10px)' : 'none',
-                    WebkitBackdropFilter: scrolled ? 'blur(10px)' : 'none',
-                    boxShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.3)' : 'none',
-                    transition: 'all 0.5s ease',
-                }}
+                className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}
                 role="navigation"
                 aria-label="Main navigation"
             >
@@ -78,14 +67,7 @@ export default function Navbar() {
                     <a
                         href="#hero"
                         onClick={(e) => handleNavClick(e, '#hero')}
-                        style={{
-                            fontSize: '1.125rem',
-                            fontWeight: 700,
-                            letterSpacing: '0.15em',
-                            textTransform: 'uppercase',
-                            color: 'var(--accent)',
-                            textDecoration: 'none',
-                        }}
+                        className="navbar-logo"
                     >
                         DevNexus
                     </a>
@@ -97,16 +79,10 @@ export default function Navbar() {
                                 key={link.href}
                                 href={link.href}
                                 onClick={(e) => handleNavClick(e, link.href)}
-                                style={{
-                                    fontSize: '0.875rem',
-                                    fontWeight: 500,
-                                    letterSpacing: '0.15em',
-                                    textTransform: 'uppercase',
-                                    transition: 'color 0.3s',
-                                    color: activeSection === link.href.slice(1) ? 'var(--accent)' : 'var(--text-secondary)',
-                                }}
-                                onMouseEnter={(e) => { if (activeSection !== link.href.slice(1)) e.target.style.color = 'var(--text-primary)'; }}
-                                onMouseLeave={(e) => { if (activeSection !== link.href.slice(1)) e.target.style.color = 'var(--text-secondary)'; }}
+                                className={
+                                    'navbar-link' +
+                                    (activeSection === link.href.slice(1) ? ' navbar-link--active' : '')
+                                }
                             >
                                 {link.label}
                             </a>
@@ -118,7 +94,6 @@ export default function Navbar() {
                         href="#contact"
                         onClick={(e) => handleNavClick(e, '#contact')}
                         className="btn btn-primary navbar-desktop-cta"
-                        style={{ fontSize: '0.75rem', padding: '10px 20px' }}
                     >
                         Hire Me
                     </a>
@@ -150,24 +125,7 @@ export default function Navbar() {
 
             {/* Mobile Menu Overlay */}
             <div
-                className="navbar-overlay"
-                style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100vh',
-                    background: 'rgba(0,0,0,0.95)',
-                    zIndex: 9999,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: 8,
-                    transition: 'opacity 0.3s ease',
-                    opacity: menuOpen ? 1 : 0,
-                    pointerEvents: menuOpen ? 'auto' : 'none',
-                }}
+                className={`navbar-overlay ${menuOpen ? 'navbar-overlay--open' : ''}`}
                 onClick={(e) => {
                     // Close when clicking the overlay background (not children)
                     if (e.target === e.currentTarget) setMenuOpen(false);
@@ -200,14 +158,8 @@ export default function Navbar() {
                         key={link.href}
                         href={link.href}
                         onClick={(e) => handleNavClick(e, link.href)}
+                        className="navbar-overlay-link"
                         style={{
-                            fontSize: '1.25rem',
-                            fontWeight: 600,
-                            letterSpacing: '0.15em',
-                            textTransform: 'uppercase',
-                            color: 'var(--text-primary)',
-                            padding: 20,
-                            textDecoration: 'none',
                             transition: `all 0.3s ease ${menuOpen ? i * 60 : 0}ms`,
                             opacity: menuOpen ? 1 : 0,
                             transform: menuOpen ? 'translateY(0)' : 'translateY(-10px)',
@@ -232,43 +184,6 @@ export default function Navbar() {
                     Hire Me
                 </a>
             </div>
-
-            <style>{`
-                .navbar-inner {
-                    max-width: 1200px;
-                    margin: 0 auto;
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    height: 64px;
-                    padding: 0 60px;
-                }
-                .navbar-desktop-links {
-                    display: flex;
-                    align-items: center;
-                    gap: 40px;
-                }
-                .navbar-desktop-cta {
-                    display: inline-flex;
-                }
-                .navbar-hamburger {
-                    display: none;
-                    background: none;
-                    border: none;
-                    cursor: pointer;
-                    padding: 8px;
-                    line-height: 0;
-                }
-                @media (max-width: 767px) {
-                    .navbar-inner {
-                        height: 64px;
-                        padding: 0 24px !important;
-                    }
-                    .navbar-desktop-links { display: none !important; }
-                    .navbar-desktop-cta { display: none !important; }
-                    .navbar-hamburger { display: block !important; }
-                }
-            `}</style>
         </>
     );
 }
