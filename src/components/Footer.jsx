@@ -23,7 +23,7 @@ export default function Footer() {
     ];
 
     return (
-        <footer className="site-footer">
+        <footer style={{ borderTop: '1px solid var(--border)', background: 'var(--bg-card)' }}>
             <div
                 className="container flex flex-col items-center gap-5 text-center"
                 style={{ paddingTop: 32, paddingBottom: 32 }}
@@ -41,14 +41,14 @@ export default function Footer() {
                             style={{
                                 background: 'var(--bg-primary)',
                                 color: 'var(--text-secondary)',
-                                border: '1px solid var(--border-subtle)',
+                                border: '1px solid var(--border)',
                             }}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.borderColor = 'var(--accent-cyan)';
-                                e.currentTarget.style.color = 'var(--accent-cyan)';
+                                e.currentTarget.style.borderColor = 'var(--accent)';
+                                e.currentTarget.style.color = 'var(--accent)';
                             }}
                             onMouseLeave={(e) => {
-                                e.currentTarget.style.borderColor = 'var(--border-subtle)';
+                                e.currentTarget.style.borderColor = 'var(--border)';
                                 e.currentTarget.style.color = 'var(--text-secondary)';
                             }}
                         >
@@ -58,9 +58,9 @@ export default function Footer() {
                 </div>
 
                 {/* Copyright */}
-                <p className="text-sm site-footer-text">
+                <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
                     © {currentYear}{' '}
-                    <span style={{ color: 'var(--accent-cyan)' }}>DevNexus</span>
+                    <span style={{ color: 'var(--accent)' }}>DevNexus</span>
                     {' '}— Built with ❤️ by Dharshan
                 </p>
             </div>

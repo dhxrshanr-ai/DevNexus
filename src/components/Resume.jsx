@@ -38,29 +38,26 @@ export default function Resume() {
                                 {/* Dot */}
                                 <div style={{
                                     position: 'absolute', left: 0, top: 6, width: 22, height: 22,
-                                    borderRadius: '50%', border: '2px solid var(--accent-cyan)', background: 'var(--bg-card)',
+                                    borderRadius: '50%', border: '2px solid var(--accent)', background: 'var(--bg-card)',
                                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                                 }}>
-                                    <div style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--accent-cyan)' }} />
+                                    <div style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--accent)' }} />
                                 </div>
 
                                 {/* Card */}
-                                <div className="resume-card card card-brackets">
+                                <div className="resume-card">
                                     <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-                                        <span
-                                            className="tag-badge"
-                                            style={{
-                                                fontSize: '0.6875rem',
-                                                paddingInline: 16,
-                                            }}
-                                        >
+                                        <span style={{
+                                            fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase',
+                                            padding: '4px 12px', borderRadius: 9999, background: 'rgba(201,168,76,0.1)', color: 'var(--accent)',
+                                        }}>
                                             {item.year}
                                         </span>
                                         <span style={{
                                             fontSize: '0.625rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase',
                                             padding: '4px 10px', borderRadius: 9999,
-                                            background: item.type === 'education' ? 'rgba(0,102,255,0.14)' : 'rgba(0,255,136,0.12)',
-                                            color: item.type === 'education' ? 'var(--accent-blue)' : 'var(--accent-success)',
+                                            background: item.type === 'education' ? 'rgba(99,102,241,0.1)' : 'rgba(16,185,129,0.1)',
+                                            color: item.type === 'education' ? '#818CF8' : '#34D399',
                                         }}>
                                             {item.type}
                                         </span>
@@ -68,7 +65,7 @@ export default function Resume() {
                                     <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: 4 }}>
                                         {item.title}
                                     </h3>
-                                    <p style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--accent-cyan)', marginBottom: 12 }}>
+                                    <p style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--accent)', marginBottom: 12 }}>
                                         {item.org}
                                     </p>
                                     <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
@@ -90,7 +87,8 @@ export default function Resume() {
                 .resume-card {
                     padding: 28px;
                     border-radius: 12px;
-                    background: transparent;
+                    background: var(--bg-primary);
+                    border: 1px solid var(--border);
                 }
                 .resume-download-btn {}
                 @media (max-width: 767px) {

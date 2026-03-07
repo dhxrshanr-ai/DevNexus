@@ -27,22 +27,22 @@ export default function Skills() {
                         {skills.map((skill) => (
                             <div
                                 key={skill.name}
-                                className="reveal-stagger skills-card card card-brackets"
+                                className="reveal-stagger skills-card"
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.borderColor = 'var(--accent)';
+                                    e.currentTarget.style.transform = 'translateY(-4px)';
+                                    e.currentTarget.style.boxShadow = '0 8px 30px rgba(201,168,76,0.1)';
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.borderColor = 'var(--border)';
+                                    e.currentTarget.style.transform = 'translateY(0)';
+                                    e.currentTarget.style.boxShadow = 'none';
+                                }}
                             >
                                 <span className="skills-icon" role="img" aria-label={skill.name}>
                                     {skill.icon}
                                 </span>
-                                <span
-                                    className="font-ui"
-                                    style={{
-                                        fontSize: '0.6875rem',
-                                        fontWeight: 600,
-                                        letterSpacing: '0.1em',
-                                        textTransform: 'uppercase',
-                                        color: 'var(--text-secondary)',
-                                        textAlign: 'center',
-                                    }}
-                                >
+                                <span style={{ fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-secondary)', textAlign: 'center' }}>
                                     {skill.name}
                                 </span>
                             </div>
@@ -66,7 +66,11 @@ export default function Skills() {
                     justify-content: center;
                     gap: 12px;
                     padding: 24px;
+                    border-radius: 12px;
+                    background: var(--bg-primary);
+                    border: 1px solid var(--border);
                     cursor: default;
+                    transition: all 0.3s ease;
                 }
                 .skills-icon { font-size: 1.75rem; }
                 @media (max-width: 767px) {

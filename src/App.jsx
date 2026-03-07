@@ -6,7 +6,6 @@ import Projects from './components/Projects';
 import Resume from './components/Resume';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import CursorGlow from './components/CursorGlow';
 
 export default function App() {
   return (
@@ -18,8 +17,6 @@ export default function App() {
       >
         Skip to main content
       </a>
-
-      <CursorGlow />
 
       <Navbar />
 

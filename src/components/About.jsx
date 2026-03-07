@@ -16,18 +16,10 @@ function CountUp({ target, duration = 2000, suffix = '' }) {
     useEffect(() => {
         const el = ref.current;
         if (!el) return;
-        const prefersReducedMotion = typeof window !== 'undefined' &&
-            window.matchMedia &&
-            window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting && !hasAnimated.current) {
                     hasAnimated.current = true;
-                    if (prefersReducedMotion) {
-                        setCount(target);
-                        return;
-                    }
                     const num = parseInt(target);
                     if (isNaN(num)) { setCount(target); return; }
                     let start = 0;
@@ -88,9 +80,19 @@ export default function About() {
                         {stats.map((stat, i) => (
                             <div
                                 key={i}
-                                className="reveal-stagger about-stat-card card card-brackets"
+                                className="reveal-stagger about-stat-card"
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.borderColor = 'var(--accent)';
+                                    e.currentTarget.style.transform = 'translateY(-4px)';
+                                    e.currentTarget.style.boxShadow = '0 8px 30px rgba(201,168,76,0.08)';
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.borderColor = 'var(--border)';
+                                    e.currentTarget.style.transform = 'translateY(0)';
+                                    e.currentTarget.style.boxShadow = 'none';
+                                }}
                             >
-                                <p style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--accent-cyan)', marginBottom: 4 }}>
+                                <p style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--accent)', marginBottom: 4 }}>
                                     {stat.value.includes('+') ? <CountUp target={stat.value.replace('+', '')} suffix="+" /> : stat.value}
                                 </p>
                                 <p style={{ fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-secondary)' }}>
@@ -113,6 +115,10 @@ export default function About() {
                 .about-stat-card {
                     text-align: center;
                     padding: 32px;
+                    border-radius: 12px;
+                    background: var(--bg-card);
+                    border: 1px solid var(--border);
+                    transition: all 0.3s ease;
                 }
                 @media (max-width: 767px) {
                     .about-section { padding-top: 60px !important; padding-bottom: 60px !important; }

@@ -57,10 +57,16 @@ export default function Contact() {
 
     const inputStyle = (hasError) => ({
         width: '100%',
+        background: 'transparent',
         color: 'var(--text-primary)',
+        padding: '12px 0',
+        paddingBottom: 12,
         fontSize: '1rem',
         outline: 'none',
+        border: 'none',
+        borderBottom: `1px solid ${hasError ? '#EF4444' : 'rgba(255,255,255,0.15)'}`,
         fontFamily: 'inherit',
+        transition: 'border-color 0.3s ease',
         minHeight: 44,
     });
 
@@ -86,36 +92,39 @@ export default function Contact() {
                     <div ref={formRef} className="reveal">
                         <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
                             <div>
-                                <label htmlFor="contact-name" className="field-label">
+                                <label htmlFor="contact-name" style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 8 }}>
                                     Your Name
                                 </label>
                                 <input id="contact-name" name="name" type="text" value={form.name} onChange={handleChange} placeholder="John Doe"
-                                    className={`field-input${errors.name ? ' field-input-error' : ''}`}
                                     style={inputStyle(errors.name)}
+                                    onFocus={(e) => { if (!errors.name) e.target.style.borderBottomColor = 'var(--accent)'; }}
+                                    onBlur={(e) => { if (!errors.name) e.target.style.borderBottomColor = 'rgba(255,255,255,0.15)'; }}
                                 />
-                                {errors.name && <p style={{ fontSize: '0.75rem', color: 'var(--danger)', marginTop: 4 }}>{errors.name}</p>}
+                                {errors.name && <p style={{ fontSize: '0.75rem', color: '#EF4444', marginTop: 4 }}>{errors.name}</p>}
                             </div>
 
                             <div>
-                                <label htmlFor="contact-email" className="field-label">
+                                <label htmlFor="contact-email" style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 8 }}>
                                     Your Email
                                 </label>
                                 <input id="contact-email" name="email" type="email" value={form.email} onChange={handleChange} placeholder="john@example.com"
-                                    className={`field-input${errors.email ? ' field-input-error' : ''}`}
                                     style={inputStyle(errors.email)}
+                                    onFocus={(e) => { if (!errors.email) e.target.style.borderBottomColor = 'var(--accent)'; }}
+                                    onBlur={(e) => { if (!errors.email) e.target.style.borderBottomColor = 'rgba(255,255,255,0.15)'; }}
                                 />
-                                {errors.email && <p style={{ fontSize: '0.75rem', color: 'var(--danger)', marginTop: 4 }}>{errors.email}</p>}
+                                {errors.email && <p style={{ fontSize: '0.75rem', color: '#EF4444', marginTop: 4 }}>{errors.email}</p>}
                             </div>
 
                             <div>
-                                <label htmlFor="contact-message" className="field-label">
+                                <label htmlFor="contact-message" style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 8 }}>
                                     Your Message
                                 </label>
                                 <textarea id="contact-message" name="message" rows={5} value={form.message} onChange={handleChange} placeholder="Tell me about your project..."
-                                    className={`field-input${errors.message ? ' field-input-error' : ''}`}
                                     style={{ ...inputStyle(errors.message), resize: 'none' }}
+                                    onFocus={(e) => { if (!errors.message) e.target.style.borderBottomColor = 'var(--accent)'; }}
+                                    onBlur={(e) => { if (!errors.message) e.target.style.borderBottomColor = 'rgba(255,255,255,0.15)'; }}
                                 />
-                                {errors.message && <p style={{ fontSize: '0.75rem', color: 'var(--danger)', marginTop: 4 }}>{errors.message}</p>}
+                                {errors.message && <p style={{ fontSize: '0.75rem', color: '#EF4444', marginTop: 4 }}>{errors.message}</p>}
                             </div>
 
                             <button type="submit" disabled={status === 'sending'} className="btn btn-primary"
@@ -128,7 +137,7 @@ export default function Contact() {
                                 {status === 'error' && 'Try Again'}
                             </button>
 
-                            {status === 'sent' && <p style={{ fontSize: '0.875rem', color: 'var(--accent-success)' }}>Thank you! I'll get back to you soon.</p>}
+                            {status === 'sent' && <p style={{ fontSize: '0.875rem', color: 'var(--success)' }}>Thank you! I'll get back to you soon.</p>}
                         </form>
                     </div>
 
@@ -152,20 +161,23 @@ export default function Contact() {
 
                                 const cardStyle = {
                                     display: 'flex', alignItems: 'center', gap: 16, padding: 20,
-                                    borderRadius: 12, width: '100%',
+                                    borderRadius: 12, background: 'var(--bg-card)', border: '1px solid var(--border)',
+                                    transition: 'all 0.3s ease', width: '100%',
                                 };
 
                                 return info.href ? (
                                     <a key={i} href={info.href}
                                         target={info.href.startsWith('http') ? '_blank' : undefined}
                                         rel={info.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                                        className="reveal-stagger contact-info-card card card-brackets"
+                                        className="reveal-stagger contact-info-card"
                                         style={cardStyle}
+                                        onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+                                        onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.transform = 'translateY(0)'; }}
                                     >
                                         {cardContent}
                                     </a>
                                 ) : (
-                                    <div key={i} className="reveal-stagger contact-info-card card card-brackets" style={cardStyle}>
+                                    <div key={i} className="reveal-stagger contact-info-card" style={cardStyle}>
                                         {cardContent}
                                     </div>
                                 );
