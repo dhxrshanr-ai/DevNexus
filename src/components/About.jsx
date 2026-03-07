@@ -63,13 +63,14 @@ export default function About() {
                     <p style={{ color: 'var(--text-secondary)', fontSize: 'clamp(0.9375rem, 2.5vw, 1.0625rem)', lineHeight: 1.8, marginBottom: 24 }}>
                         I'm <strong style={{ color: 'var(--text-primary)' }}>Dharshan</strong>, a
                         motivated Full Stack developer.{' '}
-                        I specialize in React, JavaScript, and modern CSS — transforming complex
-                        problems into clean interfaces.
+                        I specialized in React, JavaScript, and modern CSS, focused on transforming
+                        complex problems into clean, intuitive, and high-performance user interfaces.
                     </p>
                     <p style={{ color: 'var(--text-secondary)', fontSize: 'clamp(0.9375rem, 2.5vw, 1.0625rem)', lineHeight: 1.8 }}>
-                        A motivated developer fresh out of college with a strong foundation in
-                        software development, modern web technologies, and AI frameworks. Passionate
-                        about building smart, scalable applications where great design feels effortless.
+                        As a recent graduate with a strong foundation in software development, modern
+                        web technologies, and AI frameworks, I enjoy building scalable applications
+                        that combine thoughtful design with efficient functionality, creating digital
+                        experiences that feel seamless and effortless.
                     </p>
                 </div>
 
@@ -127,7 +128,7 @@ export default function About() {
                 @media (max-width: 767px) {
                     .about-section { padding-top: 60px !important; padding-bottom: 60px !important; }
                     .about-desc-container {
-                        text-align: left;
+                        text-align: justify;
                     }
                     .about-stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 16px !important; }
                     .about-stat-card { padding: 20px !important; }
