@@ -69,8 +69,7 @@ export default function About() {
                     <p style={{ color: 'var(--text-secondary)', fontSize: 'clamp(0.9375rem, 2.5vw, 1.0625rem)', lineHeight: 1.8 }}>
                         As a recent graduate with a strong foundation in software development, modern
                         web technologies, and AI frameworks, I enjoy building scalable applications
-                        that combine thoughtful design with efficient functionality, creating digital
-                        experiences that feel seamless and effortless.
+                        that combine thoughtful design with efficient functionality.
                     </p>
                 </div>
 
