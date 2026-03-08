@@ -2,8 +2,8 @@ import { useScrollReveal } from '../hooks/useScrollReveal';
 
 const timeline = [
     { year: '2022-26', title: 'Electronics and Communication Engineering', org: 'RVS College Of Engineering, Dindigul', description: 'Graduated with a focus on web technologies, data structures, and ECE core knowledge.', type: 'education' },
+    { year: '2026', title: 'Full Stack Development', org: 'CodeAlpha', description: 'Completed CodeAlpha Full Stack Development Internship, working on practical development tasks and improving skills in building and managing web applications.', type: 'internship' },
     { year: '2026', title: 'AI Fluency : Framework & Foundations', org: 'ANTHROPIC', description: 'Completed Anthropic AI Certification, gaining practical skills in prompt engineering, AI-assisted workflows, and responsible use of large language models in development and data tasks.', type: 'certification' },
-    { year: '2026', title: 'Full Stack Development', org: 'CodeAlpha', description: 'Completed CodeAlpha Full Stack Development Internship, working on practical development tasks and improving skills in building and managing web applications.', type: 'certification' },
     { year: '2025', title: 'Power BI', org: 'LOGICPIES', description: 'Completed Power BI Course demonstrating skills in data analysis, visualization, and building insightful business intelligence dashboards using Microsoft Power BI.', type: 'certification' },
 ];
 
@@ -56,8 +56,12 @@ export default function Resume() {
                                         <span style={{
                                             fontSize: '0.625rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase',
                                             padding: '4px 10px', borderRadius: 9999,
-                                            background: item.type === 'education' ? 'rgba(99,102,241,0.1)' : 'rgba(16,185,129,0.1)',
-                                            color: item.type === 'education' ? '#818CF8' : '#34D399',
+                                            background: item.type === 'education' ? 'rgba(99,102,241,0.1)'
+                                                : item.type === 'internship' ? 'rgba(249,115,22,0.1)'
+                                                    : 'rgba(16,185,129,0.1)',
+                                            color: item.type === 'education' ? '#818CF8'
+                                                : item.type === 'internship' ? '#FB923C'
+                                                    : '#34D399',
                                         }}>
                                             {item.type}
                                         </span>
