@@ -2,14 +2,14 @@
 
 /* ───────────────────── Design Tokens ───────────────────── */
 :root {
-  --bg-primary: #0A0A0A;
-  --bg-card: #141414;
-  --bg-glass: rgba(20, 20, 20, 0.7);
+  --bg-primary: #0A0C10;     /* Slight blue tint instead of pure dark #0A0A0A */
+  --bg-card: #12161C;        /* Slight blue tint for cards */
+  --bg-glass: rgba(18, 22, 28, 0.7);
   --text-primary: #F5F5F5;
-  --text-secondary: #A0A0A0;
-  --accent: #C9A84C;
-  --accent-hover: #E0C068;
-  --border: #2A2A2A;
+  --text-secondary: #A0A5AF; /* Slightly cooler secondary text */
+  --accent: #00E5CC;         /* Electric Teal */
+  --accent-hover: #33FFE6;   /* Lighter teal for hover states */
+  --border: #1E2530;         /* Cooler border color */
   --success: #4ADE80;
 }
 

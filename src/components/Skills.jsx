@@ -17,7 +17,7 @@ export default function Skills() {
                     <p className="section-label">What I work with</p>
                     <h2 className="section-title">My Tech Stack</h2>
                     <p style={{ fontSize: 'clamp(0.875rem, 2.5vw, 1.125rem)', color: 'var(--text-secondary)', maxWidth: 480, margin: '0 auto' }}>
-                        Technologies I use to bring ideas to life
+                        Creative, passionate, and approachable.
                     </p>
                 </div>
 
