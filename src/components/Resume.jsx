@@ -21,7 +21,7 @@ export default function Resume() {
                 {/* Header */}
                 <div ref={headerRef} className="reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
                     <p className="section-label">My Journey</p>
-                    <h2 className="section-title">Experience & Education</h2>
+                    <h2 className="section-title">Education & Certifications</h2>
                     <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ marginTop: 16 }}>
                         Download Full Resume (PDF) ↓
                     </a>

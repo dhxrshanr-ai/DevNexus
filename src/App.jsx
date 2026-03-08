@@ -24,8 +24,8 @@ export default function App() {
         <Hero />
         <About />
         <Skills />
-        <Projects />
         <Resume />
+        <Projects />
         <Contact />
       </main>
 
