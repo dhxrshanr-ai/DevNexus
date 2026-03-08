@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import { FiPhone, FiMail, FiLinkedin, FiGithub, FiMapPin } from 'react-icons/fi';
 
 const contactInfo = [
-    { icon: '📧', label: 'Email', value: 'dhxrshanr@gmail.com', href: null },
-    { icon: '📍', label: 'Location', value: 'Theni, Tamilnadu', href: null },
-    { icon: '💼', label: 'LinkedIn', value: 'https://www.linkedin.com/in/dharshanr6/', href: 'https://www.linkedin.com/in/dharshanr6/' },
-    { icon: '🐙', label: 'GitHub', value: 'https://github.com/dhxrshanr-ai', href: 'https://github.com/dhxrshanr-ai' },
+    { icon: <FiMapPin />, label: 'Location', value: 'Theni, Tamil Nadu', href: 'Theni, Tamil Nadu' },
+    { icon: <FiMail />, label: 'Email', value: 'dhxrshanr@gmail.com', href: 'mailto:dhxrshanr@gmail.com' },
+    { icon: <FiLinkedin />, label: 'LinkedIn', value: 'https://www.linkedin.com/in/dharshanr6/', href: 'https://www.linkedin.com/in/dharshanr6/' },
+    { icon: <FiGithub />, label: 'GitHub', value: 'https://github.com/dhxrshanr-ai', href: 'https://github.com/dhxrshanr-ai' },
 ];
 
 export default function Contact() {

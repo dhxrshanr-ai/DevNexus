@@ -40,7 +40,7 @@ export const skillCategories = [
 
 export const coreSkills = [
     "Embedded Systems Development",
-    "Microcontroller Programming (Arduino, ESP32)",
+    "Microcontroller Programming (Arduino)",
     "Communication Systems",
     "Firmware Development",
     "Hardware–Software Integration",

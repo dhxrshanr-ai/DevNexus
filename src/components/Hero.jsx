@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { FiGithub, FiLinkedin } from 'react-icons/fi';
 
 export default function Hero() {
     const [loaded, setLoaded] = useState(false);
@@ -78,21 +79,40 @@ export default function Hero() {
                     Dharshan
                 </h1>
 
-                {/* Description */}
-                <p
+                {/* Description and Socials */}
+                <div
                     style={{
-                        fontSize: 'clamp(0.9375rem, 2.5vw, 1.125rem)',
-                        color: 'var(--text-secondary)',
-                        lineHeight: 1.6,
-                        maxWidth: 540,
-                        margin: '0 auto 40px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        gap: 20,
+                        marginBottom: 40,
                         transition: 'all 0.7s ease 0.3s',
                         opacity: loaded ? 1 : 0,
                         transform: loaded ? 'translateY(0)' : 'translateY(24px)',
                     }}
                 >
-                    Passionate about building fast, modern web experiences.
-                </p>
+                    <p
+                        style={{
+                            fontSize: 'clamp(0.9375rem, 2.5vw, 1.125rem)',
+                            color: 'var(--text-secondary)',
+                            lineHeight: 1.6,
+                            maxWidth: 540,
+                            margin: 0,
+                            marginBottom: 8,
+                        }}
+                    >
+                        Passionate about building fast, modern web experiences.
+                    </p>
+                    <div style={{ display: 'flex', gap: 24, padding: '4px 0' }}>
+                        <a href="https://github.com/dhxrshanr-ai" target="_blank" rel="noopener noreferrer" aria-label="GitHub" style={{ color: 'var(--text-secondary)', fontSize: '1.75rem', transition: 'color 0.3s, transform 0.3s' }} onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text-primary)'; e.currentTarget.style.transform = 'translateY(-2px)'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-secondary)'; e.currentTarget.style.transform = 'translateY(0)'; }}>
+                            <FiGithub />
+                        </a>
+                        <a href="https://www.linkedin.com/in/dharshanr6/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style={{ color: 'var(--text-secondary)', fontSize: '1.75rem', transition: 'color 0.3s, transform 0.3s' }} onMouseEnter={(e) => { e.currentTarget.style.color = '#0077b5'; e.currentTarget.style.transform = 'translateY(-2px)'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-secondary)'; e.currentTarget.style.transform = 'translateY(0)'; }}>
+                            <FiLinkedin />
+                        </a>
+                    </div>
+                </div>
 
                 {/* CTAs */}
                 <div
