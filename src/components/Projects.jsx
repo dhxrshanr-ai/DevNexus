@@ -45,6 +45,8 @@ export default function Projects() {
                                         style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.7s ease' }}
                                         className="group-hover:scale-110"
                                     />
+                                    {/* Gradient overlay to ensure text readability */}
+                                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent pointer-events-none z-10"></div>
                                     <div
                                         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center gap-4"
                                         style={{ background: 'rgba(10,10,10,0.7)' }}
