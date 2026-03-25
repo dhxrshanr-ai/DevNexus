@@ -1,12 +1,13 @@
 import shopnovaImg from '../assets/projects/shopnova.png';
 import preconnectImg from '../assets/projects/preconnect.png';
+import gpafyImg from '../assets/projects/gpafy.png';
 import projectManagementImg from '../assets/projects/project_management.png';
 import devnexusImg from '../assets/projects/devnexus.png';
 
 export const projects = [
     {
         id: 1,
-        title: 'ShopNova (E-Commerce Site)',
+        title: 'Unique-aura (E-Commerce Site)',
         description: 'A full-featured e-commerce platform offering a seamless shopping experience. Includes product browsing, cart management, and secure checkout powered by React.',
         image: shopnovaImg, // E-commerce / POS checkout
         tags: ['React', 'Tailwind CSS', 'Redux', 'REST API'],
@@ -14,10 +15,10 @@ export const projects = [
     },
     {
         id: 2,
-        title: 'Preconnect (Social Media App)',
-        description: 'A dynamic social media application that enables users to connect, share posts, and interact in real-time. Features real-time messaging and responsive feeds.',
-        image: preconnectImg, // Social media icons/phone
-        tags: ['React', 'Node.js', 'Socket.io', 'MongoDB'],
+        title: 'GPAfy (AU GPA Calculator)',
+        description: 'A highly polished and intuitive GPA calculator application. Engineered with a streamlined dashboard to help students accurately track and manage their academic performance.',
+        image: gpafyImg, // Newly generated custom GPAfy mockup
+        tags: ['React', 'Tailwind CSS', 'React Hooks', 'Vite'],
         sourceUrl: "https://github.com/dhxrshanr-ai?tab=repositories",
     },
     {

@@ -49,7 +49,7 @@ export default function About() {
         <section
             id="about"
             className="about-section"
-            style={{ background: 'var(--bg-primary)', paddingTop: 100, paddingBottom: 100 }}
+            style={{ background: 'transparent', paddingTop: 100, paddingBottom: 100 }}
         >
             <div className="container">
                 {/* Header */}
@@ -60,16 +60,9 @@ export default function About() {
 
                 {/* Text */}
                 <div ref={textRef} className="reveal about-desc-container">
-                    <p style={{ color: 'var(--text-secondary)', fontSize: 'clamp(0.9375rem, 2.5vw, 1.0625rem)', lineHeight: 1.8, marginBottom: 24 }}>
-                        I'm <strong style={{ color: 'var(--text-primary)' }}>Dharshan</strong>, a
-                        motivated Full Stack developer.{' '}
-                        I specialized in React, JavaScript, and modern CSS, focused on transforming
-                        complex problems into clean, intuitive, and high-performance user interfaces.
-                    </p>
                     <p style={{ color: 'var(--text-secondary)', fontSize: 'clamp(0.9375rem, 2.5vw, 1.0625rem)', lineHeight: 1.8 }}>
-                        As a recent graduate with a strong foundation in software development, modern
-                        web technologies, and AI frameworks, I enjoy building scalable applications
-                        that combine thoughtful design with efficient functionality.
+                        I'm <strong style={{ color: 'var(--text-primary)' }}>Dharshan</strong>, a design-minded Full Stack Developer. 
+                        As a recent graduate, I specialize in architecting fast, scalable web applications by merging modern UI ecosystems like React with emerging AI frameworks to deliver highly polished digital experiences.
                     </p>
                 </div>
 
@@ -83,7 +76,7 @@ export default function About() {
                                 onMouseEnter={(e) => {
                                     e.currentTarget.style.borderColor = 'var(--accent)';
                                     e.currentTarget.style.transform = 'translateY(-4px)';
-                                    e.currentTarget.style.boxShadow = '0 8px 30px rgba(201,168,76,0.08)';
+                                    e.currentTarget.style.boxShadow = '0 8px 30px var(--accent-glow)';
                                 }}
                                 onMouseLeave={(e) => {
                                     e.currentTarget.style.borderColor = 'var(--border)';

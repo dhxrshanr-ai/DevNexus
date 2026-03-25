@@ -18,7 +18,8 @@ export default function Skills() {
     const [progress, setProgress] = useState(0);
 
     // Mobile State
-    const [openAccordions, setOpenAccordions] = useState(skillCategories.map(c => c.title)); // All open by default
+    const [openAccordions, setOpenAccordions] = useState([]); // All closed by default
+    const [isCoreSkillsOpen, setIsCoreSkillsOpen] = useState(false); // Closed by default
 
     // Handle Window Resize
     useEffect(() => {
@@ -72,7 +73,7 @@ export default function Skills() {
         <section
             id="skills"
             className="skills-section"
-            style={{ background: 'var(--bg-card)', paddingTop: 120, paddingBottom: 100 }}
+            style={{ background: 'transparent', paddingTop: 120, paddingBottom: 100 }}
         >
             <div className="container">
                 {/* Header */}
@@ -172,17 +173,31 @@ export default function Skills() {
                 </div>
 
                 {/* Core Skills */}
-                <div ref={coreSkillsRef} className="reveal" style={{ marginTop: 80 }}>
-                    <div style={{ textAlign: 'center', marginBottom: 40 }}>
-                        <h3 className="section-title" style={{ fontSize: '2rem' }}>Core Skills</h3>
-                    </div>
-                    <div className="core-skills-grid">
-                        {coreSkills.map((skill, index) => (
-                            <div key={index} className="reveal-stagger core-skill-card">
-                                <span style={{ color: 'var(--accent)', marginRight: 12 }}>✔️</span>
-                                <span>{skill}</span>
+                <div ref={coreSkillsRef} className="reveal accordion-container" style={{ marginTop: 80 }}>
+                    <div className={`accordion-item ${isCoreSkillsOpen ? 'open' : ''}`}>
+                        <button
+                            className="accordion-header"
+                            onClick={() => setIsCoreSkillsOpen(!isCoreSkillsOpen)}
+                        >
+                            <h3 className="accordion-title" style={{ fontSize: '1.5rem', margin: '0 auto' }}>Core Skills</h3>
+                            <span className="accordion-icon" style={{ position: 'absolute', right: '20px' }}>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </span>
+                        </button>
+                        <div className="accordion-content">
+                            <div className="accordion-content-inner">
+                                <div className="core-skills-grid" style={{ paddingTop: '20px' }}>
+                                    {coreSkills.map((skill, index) => (
+                                        <div key={index} className="reveal-stagger core-skill-card">
+                                            <span style={{ color: 'var(--accent)', marginRight: 12 }}>✔️</span>
+                                            <span>{skill}</span>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                        ))}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -226,10 +241,10 @@ export default function Skills() {
                 }
                 .skill-tab-btn:hover { background: #1f2937; color: white; }
                 .skill-tab-btn.active {
-                    background: rgba(0, 255, 204, 0.1);
-                    border: 1px solid #00ffcc;
-                    color: #00ffcc;
-                    box-shadow: 0 0 10px rgba(0, 255, 200, 0.4);
+                    background: var(--accent-faded);
+                    border: 1px solid var(--accent);
+                    color: var(--accent);
+                    box-shadow: 0 0 10px var(--accent-glow);
                 }
                 .progress-bar-container {
                     width: 100%;
@@ -242,7 +257,7 @@ export default function Skills() {
                 }
                 .progress-bar-fill {
                     height: 100%;
-                    background: #00ffcc;
+                    background: var(--accent);
                     transition: width 0.05s linear;
                 }
 
@@ -260,12 +275,12 @@ export default function Skills() {
                 }
                 .category-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
                 .category-title {
-                    font-size: 0.95rem; font-weight: 600; color: #00ffcc;
+                    font-size: 0.95rem; font-weight: 600; color: var(--accent);
                     white-space: nowrap; text-transform: uppercase; letter-spacing: 0.05em;
                 }
                 .category-divider {
                     flex-grow: 1; height: 1px;
-                    background: linear-gradient(to right, rgba(0, 255, 204, 0.3), transparent);
+                    background: linear-gradient(to right, var(--accent-glow), transparent);
                 }
 
                 /* DESKTOP GRID & CARD */
@@ -307,7 +322,7 @@ export default function Skills() {
                     transition: border-color 0.3s ease;
                 }
                 .accordion-item.open {
-                    border-color: rgba(0, 255, 204, 0.2);
+                    border-color: var(--accent-glow);
                 }
                 .accordion-header {
                     width: 100%;
@@ -328,7 +343,7 @@ export default function Skills() {
                     margin: 0;
                 }
                 .accordion-item.open .accordion-title {
-                    color: #00ffcc;
+                    color: var(--accent);
                 }
                 .accordion-icon {
                     color: #6b7280;
@@ -338,7 +353,7 @@ export default function Skills() {
                 }
                 .accordion-item.open .accordion-icon {
                     transform: rotate(180deg);
-                    color: #00ffcc;
+                    color: var(--accent);
                 }
                 .accordion-content {
                     max-height: 0;
@@ -376,8 +391,8 @@ export default function Skills() {
                     width: 100%;
                 }
                 .skill-list-card {
-                    background: #0a0f1a;
-                    border: 1px solid rgba(0, 255, 200, 0.15);
+                    background: var(--bg-card);
+                    border: 1px solid var(--border);
                     border-radius: 12px;
                     display: flex;
                     flex-direction: column;
@@ -388,8 +403,8 @@ export default function Skills() {
                     transition: all 0.2s ease;
                 }
                 .skill-list-card:hover {
-                    border-color: rgba(0, 255, 180, 0.5);
-                    box-shadow: 0 0 12px rgba(0, 255, 180, 0.3);
+                    border-color: var(--accent);
+                    box-shadow: 0 0 12px var(--accent-glow);
                     transform: translateY(-2px);
                 }
                 .skill-name {
@@ -415,8 +430,8 @@ export default function Skills() {
                     margin: 0 auto;
                 }
                 .core-skill-card {
-                    background: var(--bg-primary);
-                    border: 1px solid #374151;
+                    background: var(--bg-card);
+                    border: 1px solid rgba(255, 255, 255, 0.08);
                     border-radius: 12px;
                     padding: 20px;
                     display: flex;

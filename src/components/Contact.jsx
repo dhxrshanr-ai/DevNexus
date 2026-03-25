@@ -75,7 +75,7 @@ export default function Contact() {
         <section
             id="contact"
             className="contact-section"
-            style={{ background: 'var(--bg-primary)', paddingTop: 100, paddingBottom: 100 }}
+            style={{ background: 'transparent', paddingTop: 100, paddingBottom: 100 }}
         >
             <div className="container">
                 {/* Header */}

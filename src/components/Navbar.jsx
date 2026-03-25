@@ -64,7 +64,7 @@ export default function Navbar() {
                     left: 0,
                     width: '100%',
                     zIndex: 1000,
-                    background: scrolled ? 'rgba(10,10,10,0.95)' : 'transparent',
+                    background: scrolled ? 'rgba(5, 5, 5, 0.95)' : 'transparent',
                     backdropFilter: scrolled ? 'blur(10px)' : 'none',
                     WebkitBackdropFilter: scrolled ? 'blur(10px)' : 'none',
                     boxShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.3)' : 'none',
@@ -113,15 +113,7 @@ export default function Navbar() {
                         ))}
                     </div>
 
-                    {/* Desktop CTA */}
-                    <a
-                        href="#contact"
-                        onClick={(e) => handleNavClick(e, '#contact')}
-                        className="btn btn-primary navbar-desktop-cta"
-                        style={{ fontSize: '0.75rem', padding: '10px 20px' }}
-                    >
-                        Hire Me
-                    </a>
+
 
                     {/* Hamburger / X toggle */}
                     <button
@@ -157,7 +149,7 @@ export default function Navbar() {
                     left: 0,
                     width: '100%',
                     height: '100vh',
-                    background: 'rgba(0,0,0,0.95)',
+                    background: 'rgba(5, 5, 5, 0.98)',
                     zIndex: 9999,
                     display: 'flex',
                     flexDirection: 'column',
@@ -217,20 +209,7 @@ export default function Navbar() {
                     </a>
                 ))}
 
-                {/* Hire Me */}
-                <a
-                    href="#contact"
-                    onClick={(e) => handleNavClick(e, '#contact')}
-                    className="btn btn-primary"
-                    style={{
-                        marginTop: 16,
-                        transition: `all 0.3s ease ${menuOpen ? navLinks.length * 60 : 0}ms`,
-                        opacity: menuOpen ? 1 : 0,
-                        transform: menuOpen ? 'translateY(0)' : 'translateY(-10px)',
-                    }}
-                >
-                    Hire Me
-                </a>
+
             </div>
 
             <style>{`

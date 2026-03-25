@@ -9,7 +9,7 @@ export default function Projects() {
         <section
             id="projects"
             className="projects-section"
-            style={{ background: 'var(--bg-primary)', paddingTop: 100, paddingBottom: 80 }}
+            style={{ background: 'transparent', paddingTop: 100, paddingBottom: 80 }}
         >
             <div className="container">
                 {/* Header */}
@@ -36,49 +36,35 @@ export default function Projects() {
                     <div className="projects-grid">
                         {projects.map((project) => (
                             <div key={project.id} className="reveal-stagger group projects-card">
-                                {/* Image */}
-                                <div className="projects-card-img">
-                                    <img
-                                        src={project.image}
-                                        alt={project.title}
-                                        loading="lazy"
-                                        style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.7s ease' }}
-                                        className="group-hover:scale-110"
-                                    />
-                                    {/* Gradient overlay to ensure text readability */}
-                                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent pointer-events-none z-10"></div>
-                                    <div
-                                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center gap-4"
-                                        style={{ background: 'rgba(10,10,10,0.7)' }}
-                                    >
+                                {/* Background Image */}
+                                <img
+                                    src={project.image}
+                                    alt={project.title}
+                                    loading="lazy"
+                                    className="projects-bg-img"
+                                />
+                                
+                                {/* Overlay Gradient */}
+                                <div className="projects-overlay" />
 
-                                        <a href={project.sourceUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ fontSize: '0.75rem', padding: '8px 16px' }}>
-                                            Source Code
-                                        </a>
-                                    </div>
-                                </div>
-
-                                {/* Info */}
-                                <div style={{ padding: 20 }}>
-                                    <h3 style={{ fontSize: '1.125rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: 8 }}>
-                                        {project.title}
-                                    </h3>
-                                    <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: 8, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                                        {project.description}
-                                    </p>
-                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 8 }}>
+                                {/* Content */}
+                                <div className="projects-content">
+                                    <h3 className="projects-title">{project.title}</h3>
+                                    <p className="projects-desc">{project.description}</p>
+                                    
+                                    <div className="projects-tags">
                                         {project.tags.map((tag) => (
-                                            <span
-                                                key={tag}
-                                                style={{
-                                                    fontSize: '0.625rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase',
-                                                    padding: '4px 12px', borderRadius: 9999,
-                                                    background: 'rgba(201,168,76,0.1)', color: 'var(--accent)', border: '1px solid rgba(201,168,76,0.2)',
-                                                }}
-                                            >
+                                            <span key={tag} className="projects-tag">
                                                 {tag}
                                             </span>
                                         ))}
+                                    </div>
+
+                                    {/* Actions (Slide up on hover) */}
+                                    <div className="projects-actions">
+                                        <a href={project.sourceUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ fontSize: '0.75rem', padding: '6px 16px', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(10px)' }}>
+                                            Source Code →
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -103,36 +89,122 @@ export default function Projects() {
                 .projects-grid {
                     display: grid;
                     grid-template-columns: repeat(2, 1fr);
-                    gap: 24px;
+                    gap: 32px;
                     max-width: 1100px;
                     margin: 0 auto;
                 }
                 .projects-card {
+                    position: relative;
+                    border-radius: 24px;
                     background: var(--bg-card);
-                    border: 1px solid var(--border);
-                    border-radius: 12px;
+                    border: 1px solid rgba(255, 255, 255, 0.05);
                     overflow: hidden;
+                    aspect-ratio: 4/3;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-end;
+                    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                    cursor: pointer;
+                }
+                .projects-bg-img {
+                    position: absolute;
+                    top: 0; left: 0; width: 100%; height: 100%;
+                    object-fit: cover;
+                    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+                    z-index: 0;
+                }
+                .projects-overlay {
+                    position: absolute;
+                    inset: 0;
+                    background: linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.6) 40%, transparent 100%);
+                    z-index: 1;
                     transition: all 0.5s ease;
                 }
-                .projects-card:hover {
-                    border-color: var(--accent);
-                    transform: translateY(-6px);
-                    box-shadow: 0 20px 60px rgba(201,168,76,0.08);
-                }
-                .projects-card-img {
+                .projects-content {
                     position: relative;
-                    overflow: hidden;
-                    aspect-ratio: 16/10;
+                    z-index: 2;
+                    padding: 32px;
+                    transform: translateY(32px);
+                    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
                 }
+                .projects-title {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: #fff;
+                    margin-bottom: 8px;
+                }
+                .projects-desc {
+                    font-size: 0.95rem;
+                    color: var(--text-secondary);
+                    line-height: 1.6;
+                    margin-bottom: 16px;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    transition: color 0.3s ease;
+                }
+                .projects-tags {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 8px;
+                    margin-bottom: 20px;
+                }
+                .projects-tag {
+                    font-size: 0.625rem;
+                    font-weight: 700;
+                    letter-spacing: 0.1em;
+                    text-transform: uppercase;
+                    padding: 4px 12px;
+                    border-radius: 9999px;
+                    background: rgba(255,255,255,0.1);
+                    color: #fff;
+                    backdrop-filter: blur(8px);
+                    border: 1px solid rgba(255,255,255,0.1);
+                }
+                .projects-actions {
+                    opacity: 0;
+                    transition: opacity 0.4s ease;
+                }
+                
+                /* Hover Effects */
+                .projects-card:hover {
+                    transform: translateY(-8px);
+                    border-color: var(--accent);
+                    box-shadow: 0 20px 50px -10px rgba(0,0,0,0.5), 0 0 20px var(--accent-faded);
+                }
+                .projects-card:hover .projects-bg-img {
+                    transform: scale(1.08);
+                }
+                .projects-card:hover .projects-overlay {
+                    background: linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.8) 60%, rgba(5,5,5,0.2) 100%);
+                }
+                .projects-card:hover .projects-content {
+                    transform: translateY(0);
+                }
+                .projects-card:hover .projects-desc {
+                    color: #fff;
+                }
+                .projects-card:hover .projects-actions {
+                    opacity: 1;
+                }
+                .projects-card:hover .projects-tag {
+                    background: var(--accent-faded);
+                    color: var(--accent);
+                    border-color: var(--accent-glow);
+                }
+
                 @media (max-width: 767px) {
                     .projects-section { padding-top: 60px !important; padding-bottom: 60px !important; }
-                    .projects-header {
-                        flex-direction: column !important;
-                        align-items: flex-start !important;
-                    }
+                    .projects-header { flex-direction: column !important; align-items: flex-start !important; }
                     .projects-github-btn { margin-top: 16px; }
-                    .projects-grid { grid-template-columns: 1fr !important; gap: 20px !important; }
-                    .projects-card-img { aspect-ratio: auto !important; height: 200px; }
+                    .projects-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+                    .projects-card { aspect-ratio: auto !important; min-height: 400px; justify-content: flex-end; }
+                    
+                    /* Always show content on mobile */
+                    .projects-content { transform: translateY(0) !important; padding: 24px !important; }
+                    .projects-actions { opacity: 1 !important; }
+                    .projects-overlay { background: linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.7) 60%, transparent 100%) !important; }
                 }
             `}</style>
         </section>

@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 export default function App() {
   return (
     <>
+      <div className="bg-aurora"></div>
       {/* Skip to content link for accessibility */}
       <a
         href="#about"

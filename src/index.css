@@ -2,15 +2,18 @@
 
 /* ───────────────────── Design Tokens ───────────────────── */
 :root {
-  --bg-primary: #0A0C10;     /* Slight blue tint instead of pure dark #0A0A0A */
-  --bg-card: #12161C;        /* Slight blue tint for cards */
-  --bg-glass: rgba(18, 22, 28, 0.7);
-  --text-primary: #F5F5F5;
-  --text-secondary: #A0A5AF; /* Slightly cooler secondary text */
-  --accent: #00E5CC;         /* Electric Teal */
-  --accent-hover: #33FFE6;   /* Lighter teal for hover states */
-  --border: #1E2530;         /* Cooler border color */
-  --success: #4ADE80;
+  --bg-primary: #050505;     /* Pure void */
+  --bg-card: rgba(255, 255, 255, 0.02); /* Ghostly glass */
+  --bg-glass: rgba(10, 10, 10, 0.7);
+  --text-primary: #FFFFFF;
+  --text-secondary: #A1A1AA; 
+  --accent: #34D399;         /* Bright Emerald */
+  --accent-secondary: #059669; /* Deep Emerald */
+  --accent-hover: #10B981;
+  --accent-glow: rgba(52, 211, 153, 0.4); 
+  --accent-faded: rgba(52, 211, 153, 0.1); 
+  --border: rgba(255, 255, 255, 0.08);         
+  --success: #34D399;
 }
 
 /* ───────────────────── Base Reset ───────────────────── */
@@ -51,11 +54,13 @@ h3,
 h4,
 h5,
 h6 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
   line-height: 1.1;
   letter-spacing: -0.02em;
 }
 
 p {
+  font-family: 'Inter', sans-serif;
   line-height: 1.6;
   color: var(--text-secondary);
 }
@@ -105,18 +110,49 @@ a {
   }
 }
 
+/* ───────────────────── Utilities ───────────────────── */
+.text-gradient {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.bg-aurora {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 15% 50%, rgba(52, 211, 153, 0.15), transparent 25%),
+              radial-gradient(circle at 85% 30%, rgba(5, 150, 105, 0.15), transparent 25%);
+  filter: blur(80px);
+  animation: aurora-shift 15s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-shift {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1) translate(-2%, 2%); }
+}
+
 /* ───────────────────── Sections ───────────────────── */
 section[id] {
   scroll-margin-top: 64px;
+  position: relative;
+  z-index: 10;
 }
 
 /* ───────────────────── Section Typography ───────────────────── */
 .section-label {
   font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
+  font-weight: 700;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--accent);
+  background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
   margin-bottom: 12px;
 }
 
@@ -154,14 +190,15 @@ section[id] {
 }
 
 .btn-primary {
-  background: var(--accent);
-  color: var(--bg-primary);
+  background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+  color: #000;
+  border: none;
+  box-shadow: 0 4px 14px rgba(45, 212, 191, 0.2);
 }
 
 .btn-primary:hover {
-  background: var(--accent-hover);
-  transform: scale(1.05);
-  box-shadow: 0 8px 30px rgba(201, 168, 76, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(45, 212, 191, 0.4);
 }
 
 .btn-outline {
@@ -202,8 +239,8 @@ section[id] {
 /* ───────────────────── Glass Effect ───────────────────── */
 .glass {
   background: var(--bg-glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
 }
 
