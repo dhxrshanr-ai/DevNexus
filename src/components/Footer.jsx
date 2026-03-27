@@ -60,7 +60,10 @@ export default function Footer() {
                 {/* Copyright */}
                 <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
                     © {currentYear}{' '}
-                    <span style={{ color: 'var(--accent)' }}>DevNexus</span>
+                    <span style={{ fontWeight: 800, letterSpacing: '0.05em' }}>
+                        <span style={{ color: 'var(--text-primary)' }}>DEV</span>
+                        <span className="text-gradient">NEXUS</span>
+                    </span>
                     {' '}— Built with ❤️ by Dharshan
                 </p>
             </div>

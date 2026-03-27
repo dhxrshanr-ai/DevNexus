@@ -79,15 +79,18 @@ export default function Navbar() {
                         href="#hero"
                         onClick={(e) => handleNavClick(e, '#hero')}
                         style={{
-                            fontSize: '1.125rem',
-                            fontWeight: 700,
-                            letterSpacing: '0.15em',
+                            fontSize: '1.25rem',
+                            fontWeight: 800,
+                            letterSpacing: '0.1em',
                             textTransform: 'uppercase',
-                            color: 'var(--accent)',
                             textDecoration: 'none',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '2px'
                         }}
                     >
-                        DevNexus
+                        <span style={{ color: 'var(--text-primary)' }}>DEV</span>
+                        <span className="text-gradient">NEXUS</span>
                     </a>
 
                     {/* Desktop Links */}
