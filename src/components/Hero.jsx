@@ -50,8 +50,13 @@ export default function Hero() {
             <div className="container" style={{ position: 'relative', zIndex: 10, textAlign: 'center' }}>
                 {/* Label */}
                 <p
-                    className={`section-label ${loaded ? '' : 'hero-hidden'}`}
+                    className={loaded ? '' : 'hero-hidden'}
                     style={{
+                        fontSize: '0.75rem',
+                        fontWeight: 700,
+                        letterSpacing: '0.25em',
+                        textTransform: 'uppercase',
+                        color: 'var(--text-primary)',
                         marginBottom: 24,
                         transition: 'all 0.7s ease',
                         opacity: loaded ? 1 : 0,
