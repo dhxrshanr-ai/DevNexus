@@ -120,6 +120,7 @@ export default function Projects() {
                     justify-content: flex-end;
                     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
                     cursor: pointer;
+                    will-change: transform, opacity;
                 }
                 .projects-bg-img {
                     position: absolute;
@@ -127,6 +128,7 @@ export default function Projects() {
                     object-fit: cover;
                     transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
                     z-index: 0;
+                    will-change: transform;
                 }
                 .projects-overlay {
                     position: absolute;

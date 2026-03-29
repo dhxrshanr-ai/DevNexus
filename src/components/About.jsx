@@ -28,7 +28,7 @@ function CountUp({ target, duration = 2000, suffix = '' }) {
                         start += step;
                         if (start >= num) { setCount(num); clearInterval(timer); }
                         else setCount(start);
-                    }, 16);
+                    }, 24);
                 }
             },
             { threshold: 0.5 }
@@ -109,6 +109,7 @@ export default function About() {
                     border: 1px solid rgba(255, 255, 255, 0.05);
                     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
                     overflow: hidden;
+                    will-change: transform, opacity;
                 }
                 .about-stat-card::before {
                     content: '';
@@ -117,6 +118,7 @@ export default function About() {
                     background: radial-gradient(circle at top right, var(--accent-faded), transparent 70%);
                     opacity: 0;
                     transition: opacity 0.4s ease;
+                    pointer-events: none;
                 }
                 .about-stat-card:hover {
                     background: rgba(255, 255, 255, 0.04);
@@ -154,19 +156,20 @@ export default function About() {
                     .about-stats-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
                 }
                 @media (max-width: 767px) {
-                    .about-section { padding: 80px 0 !important; }
+                    .about-section { padding: 60px 0 !important; }
                     .about-desc-container {
                         max-width: 100%;
-                        padding: 0 20px;
-                        margin-bottom: 40px;
+                        padding: 0 16px;
+                        margin-bottom: 32px;
                         text-align: center;
                     }
                     .about-desc-container p {
-                        font-size: 0.9375rem !important;
-                        line-height: 1.7 !important;
+                        font-size: 0.95rem !important;
+                        line-height: 1.6 !important;
                     }
-                    .about-stat-card { padding: 32px 16px; border-radius: 20px; }
-                    .stat-num { font-size: 1.75rem; }
+                    .about-stat-card { padding: 24px 12px; border-radius: 16px; }
+                    .stat-num { font-size: 1.5rem; margin-bottom: 4px; }
+                    .stat-text { font-size: 0.65rem; }
                 }
             `}</style>
         </section>

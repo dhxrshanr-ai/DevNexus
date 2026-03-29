@@ -93,7 +93,7 @@ export default function Skills() {
                                             <div className="trigger-bar"></div>
                                             <span className="acc-title">{category.title}</span>
                                         </div>
-                                        <span className="acc-icon-plus"></span>
+                                        <span className="acc-chevron"></span>
                                     </button>
                                     <div className="acc-body">
                                         <div className="acc-grid">
@@ -206,6 +206,7 @@ export default function Skills() {
                     align-items: center;
                     gap: 20px;
                     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                    will-change: transform, opacity;
                 }
                 .skill-item-modern:hover {
                     background: rgba(255, 255, 255, 0.05);
@@ -221,18 +222,31 @@ export default function Skills() {
 
                 /* Mobile Accordion */
                 .mobile-accordion-list { display: flex; flex-direction: column; gap: 12px; }
-                .modern-acc-item { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 20px; overflow: hidden; }
+                .modern-acc-item { 
+                    background: rgba(255, 255, 255, 0.02); 
+                    border: 1px solid rgba(255, 255, 255, 0.05); 
+                    border-radius: 20px; 
+                    overflow: hidden; 
+                    will-change: transform, opacity;
+                }
                 .acc-trigger { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 24px; background: none; border: none; cursor: pointer; color: white; }
                 .trigger-left { display: flex; align-items: center; gap: 16px; }
                 .trigger-bar { width: 4px; height: 20px; background: #374151; border-radius: 2px; transition: all 0.3s ease; }
                 .modern-acc-item.open .trigger-bar { background: var(--accent); height: 24px; box-shadow: 0 0 10px var(--accent-glow); }
                 .acc-title { font-weight: 700; font-size: 1.1rem; }
-                .acc-icon-plus { width: 20px; height: 20px; position: relative; }
-                .acc-icon-plus::before, .acc-icon-plus::after { content: ''; position: absolute; background: #6b7280; border-radius: 2px; transition: all 0.3s ease; }
-                .acc-icon-plus::before { width: 100%; height: 2px; top: 9px; left: 0; }
-                .acc-icon-plus::after { width: 2px; height: 100%; top: 0; left: 9px; }
-                .modern-acc-item.open .acc-icon-plus::after { transform: rotate(90deg); opacity: 0; }
-                .modern-acc-item.open .acc-icon-plus::before { background: var(--accent); }
+                .acc-chevron { 
+                    width: 10px; height: 10px; 
+                    border-right: 2px solid #6b7280; 
+                    border-bottom: 2px solid #6b7280; 
+                    transform: rotate(45deg); 
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                    margin-top: -4px;
+                }
+                .modern-acc-item.open .acc-chevron { 
+                    transform: rotate(-135deg); 
+                    border-color: var(--accent);
+                    margin-top: 4px;
+                }
                 .acc-body { max-height: 0; overflow: hidden; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); opacity: 0; }
                 .modern-acc-item.open .acc-body { max-height: 1000px; padding: 0 24px 24px; opacity: 1; }
                 .acc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
@@ -246,7 +260,17 @@ export default function Skills() {
                 .core-header-wrap .line { flex-grow: 1; height: 1px; background: linear-gradient(to right, transparent, var(--accent), transparent); opacity: 0.3; }
                 .core-header-wrap .title { font-size: 1.5rem; font-weight: 800; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.2em; white-space: nowrap; }
                 .core-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-                .core-card { display: flex; align-items: center; gap: 16px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); padding: 24px; border-radius: 20px; transition: all 0.3s ease; }
+                .core-card { 
+                    display: flex; 
+                    align-items: center; 
+                    gap: 16px; 
+                    background: rgba(255, 255, 255, 0.02); 
+                    border: 1px solid rgba(255, 255, 255, 0.05); 
+                    padding: 24px; 
+                    border-radius: 20px; 
+                    transition: all 0.3s ease;
+                    will-change: transform, opacity;
+                }
                 .core-card:hover { background: rgba(255, 255, 255, 0.04); border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5); }
                 .card-check { width: 20px; height: 20px; color: var(--accent); flex-shrink: 0; }
                 .card-text { font-size: 1rem; font-weight: 600; color: var(--text-secondary); }

@@ -53,11 +53,12 @@ export default function Hero() {
                 <h1
                     className={loaded ? 'hero-revealed' : 'hero-hidden'}
                     style={{
-                        fontSize: 'clamp(3rem, 10vw, 6rem)', 
+                        fontSize: 'clamp(3.5rem, 12vw, 7rem)', 
+                        fontFamily: 'Outfit, sans-serif',
                         fontWeight: 900,
                         textTransform: 'uppercase',
-                        lineHeight: 1,
-                        letterSpacing: '-0.02em',
+                        lineHeight: 0.9,
+                        letterSpacing: '-0.04em',
                         marginBottom: 32,
                         transition: 'all 1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s',
                         opacity: loaded ? 1 : 0,
@@ -155,11 +156,16 @@ export default function Hero() {
                     to { background-position: 200% center; }
                 }
                 @media (max-width: 767px) {
-                    .hero-section { padding: 60px 0 !important; }
+                    .hero-section { padding: 40px 0 !important; }
                     .hero-ctas { flex-direction: column !important; gap: 12px !important; align-items: center !important; }
                     .hero-btn { width: 100% !important; max-width: 280px !important; }
-                    .hero-scroll-indicator { margin-top: 40px !important; }
-                    h1 { font-size: 3rem !important; letter-spacing: 0.1em !important; }
+                    .hero-scroll-indicator { margin-top: 32px !important; }
+                    h1 { 
+                        font-family: Outfit, sans-serif !important;
+                        font-size: 3.25rem !important; 
+                        letter-spacing: -0.03em !important; 
+                        filter: drop-shadow(0 0 12px var(--accent-faded)) !important; /* Smaller shadow on mobile */
+                    }
                 }
             `}</style>
         </section>

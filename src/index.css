@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Sora:wght@100..800&family=Outfit:wght@100..900&display=swap');
 
 /* ───────────────────── Design Tokens ───────────────────── */
 :root {
@@ -35,14 +36,18 @@ html {
   background: var(--bg-primary);
   color: var(--text-primary);
   font-size: clamp(14px, 1.5vw, 16px);
-  overflow-x: hidden;
+  /* Use clip to prevent scroll jank on some mobile browsers */
+  overflow-x: clip;
 }
 
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
   min-height: 100vh;
+  /* GPU acceleration hint */
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 img {
@@ -58,7 +63,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Outfit', sans-serif;
   line-height: 1.1;
   letter-spacing: -0.02em;
 }
@@ -131,10 +136,20 @@ a {
   bottom: 0;
   z-index: 0;
   pointer-events: none;
-  background: radial-gradient(circle at 15% 50%, rgba(52, 211, 153, 0.15), transparent 25%),
-    radial-gradient(circle at 85% 30%, rgba(5, 150, 105, 0.15), transparent 25%);
-  filter: blur(80px);
-  animation: aurora-shift 15s ease-in-out infinite alternate;
+  background: radial-gradient(circle at 15% 50%, rgba(52, 211, 153, 0.12), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(5, 150, 105, 0.12), transparent 25%);
+  filter: blur(60px);
+  animation: aurora-shift 20s ease-in-out infinite alternate;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+@media (max-width: 768px) {
+  .bg-aurora {
+    filter: blur(40px); /* Lower blur for mobile performance */
+    animation: none; /* Disable animation for scroll performance */
+    opacity: 0.6;
+  }
 }
 
 @keyframes aurora-shift {
@@ -152,6 +167,9 @@ section[id] {
   scroll-margin-top: 64px;
   position: relative;
   z-index: 10;
+  /* Optimization: Skip rendering if not in viewport */
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500px;
 }
 
 /* ───────────────────── Section Typography ───────────────────── */
@@ -251,9 +269,17 @@ section[id] {
 /* ───────────────────── Glass Effect ───────────────────── */
 .glass {
   background: var(--bg-glass);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
+}
+
+@media (max-width: 768px) {
+  .glass {
+    backdrop-filter: none; /* Disable expensive filter on mobile */
+    -webkit-backdrop-filter: none;
+    background: rgba(10, 10, 10, 0.95); /* Nearly opaque for better performance */
+  }
 }
 
 /* ───────────────────── Focus Accessibility ───────────────────── */
