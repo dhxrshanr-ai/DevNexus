@@ -14,13 +14,10 @@ export default function Projects() {
             <div className="container">
                 {/* Header */}
                 <div ref={headerRef} className="reveal projects-header">
-                    <div>
-                        <p className="section-label">My work</p>
-                        <h2 className="section-title" style={{ marginBottom: 8 }}>Projects</h2>
-                        <p style={{ fontSize: 'clamp(0.875rem, 2.5vw, 1.125rem)', color: 'var(--text-secondary)', maxWidth: 400 }}>
-                            Handpicked work that showcases my abilities
-                        </p>
-                    </div>
+                    <h2 className="section-title">Projects</h2>
+                    <p className="projects-subtitle">
+                        Handpicked work that showcases my abilities
+                    </p>
                     <a
                         href="https://github.com/dhxrshanr-ai?tab=repositories"
                         target="_blank"
@@ -62,8 +59,18 @@ export default function Projects() {
 
                                     {/* Actions (Slide up on hover) */}
                                     <div className="projects-actions">
-                                        <a href={project.sourceUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ fontSize: '0.75rem', padding: '6px 16px', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(10px)' }}>
-                                            Source Code →
+                                        <a 
+                                            href={project.liveUrl} 
+                                            target="_blank" 
+                                            rel="noopener noreferrer" 
+                                            className="btn btn-primary" 
+                                            style={{ fontSize: '0.75rem', padding: '10px 20px', display: 'flex', alignItems: 'center', gap: '8px' }}
+                                        >
+                                            <span className="live-dot"></span>
+                                            Live Visit
+                                        </a>
+                                        <a href={project.sourceUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ fontSize: '0.75rem', padding: '10px 20px', background: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(10px)' }}>
+                                            Source Code
                                         </a>
                                     </div>
                                 </div>
@@ -76,15 +83,23 @@ export default function Projects() {
             <style>{`
                 .projects-header {
                     display: flex;
-                    flex-wrap: wrap;
-                    align-items: flex-end;
-                    justify-content: space-between;
+                    flex-direction: column;
+                    align-items: center;
+                    text-align: center;
                     gap: 16px;
-                    margin-bottom: 48px;
+                    margin-bottom: 64px;
+                }
+                .projects-subtitle {
+                    font-size: clamp(0.9375rem, 2.5vw, 1.125rem);
+                    color: var(--text-secondary);
+                    max-width: 600px;
+                    line-height: 1.6;
+                    margin: 0;
                 }
                 .projects-github-btn {
                     font-size: 0.75rem;
-                    padding: 10px 20px;
+                    padding: 10px 24px;
+                    margin-top: 8px;
                 }
                 .projects-grid {
                     display: grid;
@@ -162,9 +177,24 @@ export default function Projects() {
                     backdrop-filter: blur(8px);
                     border: 1px solid rgba(255,255,255,0.1);
                 }
-                .projects-actions {
+                 .projects-actions {
                     opacity: 0;
-                    transition: opacity 0.4s ease;
+                    display: flex;
+                    gap: 12px;
+                    transition: all 0.4s ease;
+                }
+                .live-dot {
+                    width: 8px;
+                    height: 8px;
+                    background: #fff;
+                    border-radius: 50%;
+                    box-shadow: 0 0 10px #fff;
+                    animation: pulse 1.5s infinite;
+                }
+                @keyframes pulse {
+                    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+                    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
+                    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
                 }
                 
                 /* Hover Effects */
@@ -196,7 +226,7 @@ export default function Projects() {
 
                 @media (max-width: 767px) {
                     .projects-section { padding-top: 60px !important; padding-bottom: 60px !important; }
-                    .projects-header { flex-direction: column !important; align-items: flex-start !important; }
+                    .projects-header { flex-direction: column !important; align-items: center !important; text-align: center !important; }
                     .projects-github-btn { margin-top: 16px; }
                     .projects-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
                     .projects-card { aspect-ratio: auto !important; min-height: 400px; justify-content: flex-end; }

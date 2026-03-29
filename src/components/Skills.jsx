@@ -4,462 +4,313 @@ import { useScrollReveal } from '../hooks/useScrollReveal';
 
 export default function Skills() {
     const headerRef = useScrollReveal();
-    const categoriesRef = useScrollReveal({ staggerDelay: 80 });
     const coreSkillsRef = useScrollReveal({ staggerDelay: 80 });
 
-    const tabs = skillCategories.map(c => c.title);
-
-    // Shared State
-    const [isMobile, setIsMobile] = useState(false);
-
-    // Desktop State
     const [activeTab, setActiveTab] = useState(skillCategories[0]?.title || '');
-    const [isHovered, setIsHovered] = useState(false);
-    const [progress, setProgress] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
+    const [openAccordions, setOpenAccordions] = useState([]);
+    const [showCoreSkills, setShowCoreSkills] = useState(false);
 
-    // Mobile State
-    const [openAccordions, setOpenAccordions] = useState([]); // All closed by default
-    const [isCoreSkillsOpen, setIsCoreSkillsOpen] = useState(false); // Closed by default
-
-    // Handle Window Resize
     useEffect(() => {
-        const checkMobile = () => setIsMobile(window.innerWidth < 768);
-        checkMobile(); // Initial check
+        const checkMobile = () => setIsMobile(window.innerWidth < 992);
+        checkMobile();
         window.addEventListener('resize', checkMobile);
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
-    // Desktop Auto-advance Timer
-    useEffect(() => {
-        if (isMobile || isHovered) return;
-
-        const interval = 30; // ms
-        const duration = 3000; // ms
-        const increment = (interval / duration) * 100;
-
-        const timer = setInterval(() => {
-            setProgress(prev => {
-                if (prev >= 100) {
-                    setActiveTab(current => {
-                        const currentIndex = tabs.indexOf(current);
-                        const nextIndex = (currentIndex + 1) % tabs.length;
-                        return tabs[nextIndex];
-                    });
-                    return 0;
-                }
-                return prev + increment;
-            });
-        }, interval);
-
-        return () => clearInterval(timer);
-    }, [isMobile, isHovered, tabs]);
-
-    const handleTabClick = (tab) => {
-        setActiveTab(tab);
-        setProgress(0);
-    };
-
     const toggleAccordion = (title) => {
         setOpenAccordions(prev =>
-            prev.includes(title)
-                ? prev.filter(t => t !== title)
-                : [...prev, title]
+            prev.includes(title) ? prev.filter(t => t !== title) : [...prev, title]
         );
     };
 
-    const displayCategories = skillCategories.filter(c => c.title === activeTab);
+    const activeCategory = skillCategories.find(c => c.title === activeTab);
 
     return (
-        <section
-            id="skills"
-            className="skills-section"
-            style={{ background: 'transparent', paddingTop: 120, paddingBottom: 100 }}
-        >
+        <section id="skills" className="skills-section-new">
             <div className="container">
                 {/* Header */}
-                <div ref={headerRef} className="reveal" style={{ textAlign: 'center', marginBottom: 64 }}>
-                    <p className="section-label">What I work with</p>
-                    <h2 className="section-title">My Tech Stack</h2>
-                    <p style={{ fontSize: 'clamp(0.875rem, 2.5vw, 1.125rem)', color: 'var(--text-secondary)', maxWidth: 480, margin: '0 auto' }}>
-                        Creative, passionate, and approachable.
+                <div ref={headerRef} className="reveal section-header">
+                    <p className="section-label-minimal">Expertise</p>
+                    <h2 className="section-title-bold">My Tech Stack</h2>
+                    <p className="section-desc">
+                        A curated selection of tools and technologies I use to bring ideas to life.
                     </p>
                 </div>
 
-                <div
-                    ref={categoriesRef}
-                    className="reveal interactive-skills-container"
-                    onMouseEnter={() => !isMobile && setIsHovered(true)}
-                    onMouseLeave={() => !isMobile && setIsHovered(false)}
-                >
-                    {!isMobile ? (
-                        /* DESKTOP VIEW: Tabbed Carousel */
-                        <>
-                            <div className="skills-tabs-scroll">
-                                <div className="skills-tabs">
-                                    {tabs.map(tab => (
-                                        <button
-                                            key={tab}
-                                            className={`skill-tab-btn ${activeTab === tab ? 'active' : ''}`}
-                                            onClick={() => handleTabClick(tab)}
-                                        >
-                                            {tab}
-                                        </button>
-                                    ))}
-                                </div>
+                {/* Main Skills Interaction Area */}
+                {!isMobile ? (
+                    <div className="skills-split-layout">
+                        {/* Left Sidebar */}
+                        <div className="skills-sidebar">
+                            <div className="sidebar-inner">
+                                {skillCategories.map((cat) => (
+                                    <button
+                                        key={cat.title}
+                                        className={`sidebar-item ${activeTab === cat.title ? 'active' : ''}`}
+                                        onClick={() => setActiveTab(cat.title)}
+                                    >
+                                        <div className="item-dot"></div>
+                                        <span className="item-text">{cat.title}</span>
+                                        <div className="active-glow"></div>
+                                    </button>
+                                ))}
                             </div>
+                        </div>
 
-                            <div className="progress-bar-container">
-                                <div className="progress-bar-fill" style={{ width: `${progress}%` }}></div>
+                        {/* Right Content */}
+                        <div className="skills-content-panel" key={activeTab}>
+                            <div className="content-header">
+                                <h3 className="cat-header-title">{activeTab}</h3>
+                                <div className="cat-header-line"></div>
                             </div>
-
-                            <div className="categories-container" key={activeTab}>
-                                {displayCategories.map((category) => (
-                                    <div key={category.title} className="category-section slide-in">
-                                        <div className="skills-list-grid desktop-grid">
-                                            {category.skills.map((skill) => (
-                                                <div key={skill.name} className="skill-list-card desktop-card">
-                                                    <span className="skills-icon desktop-icon" role="img" aria-label={skill.name}>
-                                                        {skill.icon}
-                                                    </span>
-                                                    <span className="skill-name desktop-name">
-                                                        {skill.name}
-                                                    </span>
-                                                </div>
-                                            ))}
+                            <div className="skills-grid-modern">
+                                {activeCategory?.skills.map((skill, idx) => (
+                                    <div key={skill.name} className="skill-item-modern fade-up" style={{ animationDelay: `${idx * 0.05}s` }}>
+                                        <div className="skill-icon-wrap">
+                                            {skill.icon}
+                                        </div>
+                                        <div className="skill-info">
+                                            <h4 className="skill-name-txt">{skill.name}</h4>
                                         </div>
                                     </div>
                                 ))}
                             </div>
-                        </>
-                    ) : (
-                        /* MOBILE VIEW: Accordion Stack */
-                        <div className="accordion-container">
-                            {skillCategories.map((category) => {
-                                const isOpen = openAccordions.includes(category.title);
-                                return (
-                                    <div key={category.title} className={`accordion-item ${isOpen ? 'open' : ''}`}>
-                                        <button
-                                            className="accordion-header"
-                                            onClick={() => toggleAccordion(category.title)}
-                                        >
-                                            <h3 className="accordion-title">{category.title}</h3>
-                                            <span className="accordion-icon">
-                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                    <polyline points="6 9 12 15 18 9"></polyline>
-                                                </svg>
-                                            </span>
-                                        </button>
-                                        <div className="accordion-content">
-                                            <div className="accordion-content-inner">
-                                                <div className="skills-list-grid mobile-grid">
-                                                    {category.skills.map((skill) => (
-                                                        <div key={skill.name} className="skill-list-card mobile-card">
-                                                            <span className="skills-icon mobile-icon" role="img" aria-label={skill.name}>
-                                                                {skill.icon}
-                                                            </span>
-                                                            <span className="skill-name mobile-name">
-                                                                {skill.name}
-                                                            </span>
-                                                        </div>
-                                                    ))}
+                        </div>
+                    </div>
+                ) : (
+                    /* Mobile View: Premium Accordion */
+                    <div className="mobile-accordion-list">
+                        {skillCategories.map((category) => {
+                            const isOpen = openAccordions.includes(category.title);
+                            return (
+                                <div key={category.title} className={`modern-acc-item ${isOpen ? 'open' : ''}`}>
+                                    <button
+                                        className="acc-trigger"
+                                        onClick={() => toggleAccordion(category.title)}
+                                    >
+                                        <div className="trigger-left">
+                                            <div className="trigger-bar"></div>
+                                            <span className="acc-title">{category.title}</span>
+                                        </div>
+                                        <span className="acc-icon-plus"></span>
+                                    </button>
+                                    <div className="acc-body">
+                                        <div className="acc-grid">
+                                            {category.skills.map((skill) => (
+                                                <div key={skill.name} className="acc-skill-card">
+                                                    <span className="acc-skill-icon">{skill.icon}</span>
+                                                    <span className="acc-skill-name">{skill.name}</span>
                                                 </div>
-                                            </div>
+                                            ))}
                                         </div>
                                     </div>
-                                );
-                            })}
-                        </div>
-                    )}
-                </div>
-
-                {/* Core Skills */}
-                <div ref={coreSkillsRef} className="reveal accordion-container" style={{ marginTop: 80 }}>
-                    <div className={`accordion-item ${isCoreSkillsOpen ? 'open' : ''}`}>
-                        <button
-                            className="accordion-header"
-                            onClick={() => setIsCoreSkillsOpen(!isCoreSkillsOpen)}
-                        >
-                            <h3 className="accordion-title" style={{ fontSize: '1.5rem', margin: '0 auto' }}>Core Skills</h3>
-                            <span className="accordion-icon" style={{ position: 'absolute', right: '20px' }}>
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <polyline points="6 9 12 15 18 9"></polyline>
-                                </svg>
-                            </span>
-                        </button>
-                        <div className="accordion-content">
-                            <div className="accordion-content-inner">
-                                <div className="core-skills-grid" style={{ paddingTop: '20px' }}>
-                                    {coreSkills.map((skill, index) => (
-                                        <div key={index} className="reveal-stagger core-skill-card">
-                                            <span style={{ color: 'var(--accent)', marginRight: 12 }}>✔️</span>
-                                            <span>{skill}</span>
-                                        </div>
-                                    ))}
                                 </div>
-                            </div>
+                            );
+                        })}
+                    </div>
+                )}
+
+                {/* Core Skills - Structured Grid */}
+                <div ref={coreSkillsRef} className="reveal core-skills-redesign">
+                    <div className="core-header-wrap">
+                        <div className="line"></div>
+                        <h2 className="title">Core Skills</h2>
+                        <div className="line"></div>
+                    </div>
+                    
+                    <div className={`core-grid-container ${showCoreSkills ? 'expanded' : ''}`}>
+                        <div className="core-grid">
+                            {coreSkills.map((skill, index) => (
+                                <div key={index} className="core-card">
+                                    <div className="card-check">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>
+                                    </div>
+                                    <span className="card-text">{skill}</span>
+                                </div>
+                            ))}
                         </div>
+                    </div>
+
+                    <div className="core-view-more">
+                        <button 
+                            className="btn-view-skills"
+                            onClick={() => setShowCoreSkills(!showCoreSkills)}
+                        >
+                            {showCoreSkills ? 'Hide' : 'View'}
+                            <span className={`arrow ${showCoreSkills ? 'up' : 'down'}`}></span>
+                        </button>
                     </div>
                 </div>
             </div>
 
             <style>{`
-                /* General Container */
-                .interactive-skills-container {
-                    max-width: 900px;
+                .skills-section-new { padding: 120px 0; background: transparent; overflow: hidden; }
+                .section-header { text-align: center; margin-bottom: 80px; }
+                .section-label-minimal { color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 0.2rem; font-size: 0.75rem; margin-bottom: 12px; }
+                .section-title-bold { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--text-primary); margin-bottom: 24px; }
+                .section-desc { color: var(--text-secondary); max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+                /* Split Layout Desktop */
+                .skills-split-layout {
+                    display: grid;
+                    grid-template-columns: 260px 1fr;
+                    gap: 32px;
+                    max-width: 1100px;
                     margin: 0 auto;
+                    min-height: auto;
+                    background: rgba(255, 255, 255, 0.01);
+                    border: 1px solid rgba(255, 255, 255, 0.05);
+                    padding: 24px;
+                    border-radius: 32px;
+                    backdrop-filter: blur(20px);
+                }
+
+                .skills-sidebar { display: flex; flex-direction: column; gap: 8px; border-right: 1px solid rgba(255, 255, 255, 0.05); padding-right: 32px; }
+                .sidebar-item {
+                    background: transparent;
+                    border: none;
                     display: flex;
-                    flex-direction: column;
-                    gap: 24px;
-                }
-                
-                /* DESKTOP TABS & PROGRESS */
-                .skills-tabs-scroll {
-                    width: 100%;
-                    overflow-x: auto;
-                    scrollbar-width: none;
-                    -ms-overflow-style: none;
-                    padding-bottom: 0px; /* Reduced vertical whitespace */
-                }
-                .skills-tabs-scroll::-webkit-scrollbar { display: none; }
-                .skills-tabs {
-                    display: flex;
-                    gap: 12px;
-                    justify-content: center;
-                    min-width: max-content;
-                    margin: 0 auto;
-                }
-                .skill-tab-btn {
-                    background: #111827;
-                    border: 1px solid #374151;
-                    color: #9ca3af;
-                    padding: 8px 20px;
-                    border-radius: 9999px;
-                    font-size: 0.9rem;
-                    font-weight: 500;
+                    align-items: center;
+                    gap: 16px;
+                    padding: 16px 20px;
+                    border-radius: 16px;
+                    color: var(--text-muted);
+                    font-weight: 600;
                     cursor: pointer;
                     transition: all 0.3s ease;
-                }
-                .skill-tab-btn:hover { background: #1f2937; color: white; }
-                .skill-tab-btn.active {
-                    background: var(--accent-faded);
-                    border: 1px solid var(--accent);
-                    color: var(--accent);
-                    box-shadow: 0 0 10px var(--accent-glow);
-                }
-                .progress-bar-container {
-                    width: 100%;
-                    height: 3px;
-                    background: #374151;
-                    border-radius: 2px;
-                    overflow: hidden;
-                    margin-top: 8px;
-                    margin-bottom: 24px;
-                }
-                .progress-bar-fill {
-                    height: 100%;
-                    background: var(--accent);
-                    transition: width 0.05s linear;
-                }
-
-                /* CATEGORIES CONTENT (Desktop) */
-                .categories-container {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 16px;
-                }
-                .category-section { width: 100%; }
-                .slide-in { animation: slideInFade 0.3s ease forwards; }
-                @keyframes slideInFade {
-                    from { opacity: 0; transform: translateX(20px); }
-                    to { opacity: 1; transform: translateX(0); }
-                }
-                .category-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
-                .category-title {
-                    font-size: 0.95rem; font-weight: 600; color: var(--accent);
-                    white-space: nowrap; text-transform: uppercase; letter-spacing: 0.05em;
-                }
-                .category-divider {
-                    flex-grow: 1; height: 1px;
-                    background: linear-gradient(to right, var(--accent-glow), transparent);
-                }
-
-                /* DESKTOP GRID & CARD */
-                .desktop-grid {
-                    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-                    gap: 12px;
-                    justify-content: center;
-                }
-                /* Target grids with 2 items and manually restrict their width */
-                .category-section:has(.skill-list-card:nth-last-child(2):first-child) .desktop-grid {
-                    max-width: 320px;
-                    margin: 0 auto;
-                }
-                .desktop-card { 
-                    height: 90px;
-                    min-height: 90px;
-                    padding: 16px 12px;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    gap: 8px;
-                }
-                .desktop-icon { font-size: 32px; margin-bottom: 0; }
-                .desktop-name { font-size: 13px; margin-top: 0; }
-
-                /* MOBILE ACCORDION (Hidden on Desktop natively) */
-                .accordion-container {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 12px;
-                    width: 100%;
-                }
-                .accordion-item {
-                    background: #0d1117;
-                    border: 1px solid rgba(255, 255, 255, 0.05);
-                    border-radius: 12px;
-                    overflow: hidden;
-                    transition: border-color 0.3s ease;
-                }
-                .accordion-item.open {
-                    border-color: var(--accent-glow);
-                }
-                .accordion-header {
-                    width: 100%;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 16px 20px;
-                    background: none;
-                    border: none;
-                    color: white;
-                    cursor: pointer;
+                    position: relative;
                     text-align: left;
-                }
-                .accordion-title {
-                    font-size: 0.95rem;
-                    font-weight: 600;
-                    color: a1a1aa;
-                    margin: 0;
-                }
-                .accordion-item.open .accordion-title {
-                    color: var(--accent);
-                }
-                .accordion-icon {
-                    color: #6b7280;
-                    transition: transform 0.3s ease;
-                    display: flex;
-                    align-items: center;
-                }
-                .accordion-item.open .accordion-icon {
-                    transform: rotate(180deg);
-                    color: var(--accent);
-                }
-                .accordion-content {
-                    max-height: 0;
                     overflow: hidden;
-                    transition: max-height 0.3s ease-in-out;
                 }
-                .accordion-item.open .accordion-content {
-                    max-height: 2000px; /* arbitrary large max height for transition */
-                }
-                .accordion-content-inner {
-                    padding: 0 16px 20px 16px;
-                }
+                .item-dot { width: 6px; height: 6px; background: currentColor; border-radius: 50%; opacity: 0.3; transition: all 0.3s ease; }
+                .sidebar-item.active { color: white; background: rgba(255, 255, 255, 0.03); }
+                .sidebar-item.active .item-dot { background: var(--accent); opacity: 1; box-shadow: 0 0 10px var(--accent-glow); transform: scale(1.5); }
+                .active-glow { position: absolute; left: 0; top: 0; height: 100%; width: 3px; background: var(--accent); opacity: 0; transition: all 0.3s ease; }
+                .sidebar-item.active .active-glow { opacity: 1; box-shadow: 0 0 15px var(--accent-glow); }
 
-                /* MOBILE GRID & CARD */
-                .mobile-grid {
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 10px;
-                }
-                .mobile-card {
-                    height: 80px;
-                    min-height: 80px;
-                    padding: 8px;
-                }
-                .mobile-icon {
-                    font-size: 22px;
-                    margin-bottom: 4px;
-                }
-                .mobile-name {
-                    font-size: 11px;
-                }
+                .skills-content-panel { padding-left: 8px; }
+                .content-header { display: flex; align-items: center; gap: 20px; margin-bottom: 32px; }
+                .cat-header-title { font-size: 1.5rem; font-weight: 800; color: var(--text-primary); margin: 0; }
+                .cat-header-line { flex-grow: 1; height: 1px; background: linear-gradient(to right, rgba(255, 255, 255, 0.1), transparent); }
 
-                /* SHARED GRID BASE STYLES */
-                .skills-list-grid {
-                    display: grid;
-                    width: 100%;
-                }
-                .skill-list-card {
-                    background: var(--bg-card);
-                    border: 1px solid var(--border);
-                    border-radius: 12px;
+                .skills-grid-modern { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+                .skill-item-modern {
+                    background: rgba(255, 255, 255, 0.02);
+                    border: 1px solid rgba(255, 255, 255, 0.05);
+                    padding: 24px;
+                    border-radius: 20px;
                     display: flex;
-                    flex-direction: column;
                     align-items: center;
-                    justify-content: center;
-                    text-align: center;
-                    color: var(--text-secondary);
-                    transition: all 0.2s ease;
+                    gap: 20px;
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                 }
-                .skill-list-card:hover {
+                .skill-item-modern:hover {
+                    background: rgba(255, 255, 255, 0.05);
                     border-color: var(--accent);
-                    box-shadow: 0 0 12px var(--accent-glow);
+                    transform: translateX(10px);
+                    box-shadow: -10px 10px 40px -15px rgba(0,0,0,0.5);
+                }
+                .skill-icon-wrap { font-size: 2rem; }
+                .skill-name-txt { font-weight: 700; color: var(--text-primary); margin: 0; font-size: 1.1rem; }
+
+                .fade-up { animation: fadeUp 0.5s ease backwards; }
+                @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+                /* Mobile Accordion */
+                .mobile-accordion-list { display: flex; flex-direction: column; gap: 12px; }
+                .modern-acc-item { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 20px; overflow: hidden; }
+                .acc-trigger { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 24px; background: none; border: none; cursor: pointer; color: white; }
+                .trigger-left { display: flex; align-items: center; gap: 16px; }
+                .trigger-bar { width: 4px; height: 20px; background: #374151; border-radius: 2px; transition: all 0.3s ease; }
+                .modern-acc-item.open .trigger-bar { background: var(--accent); height: 24px; box-shadow: 0 0 10px var(--accent-glow); }
+                .acc-title { font-weight: 700; font-size: 1.1rem; }
+                .acc-icon-plus { width: 20px; height: 20px; position: relative; }
+                .acc-icon-plus::before, .acc-icon-plus::after { content: ''; position: absolute; background: #6b7280; border-radius: 2px; transition: all 0.3s ease; }
+                .acc-icon-plus::before { width: 100%; height: 2px; top: 9px; left: 0; }
+                .acc-icon-plus::after { width: 2px; height: 100%; top: 0; left: 9px; }
+                .modern-acc-item.open .acc-icon-plus::after { transform: rotate(90deg); opacity: 0; }
+                .modern-acc-item.open .acc-icon-plus::before { background: var(--accent); }
+                .acc-body { max-height: 0; overflow: hidden; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); opacity: 0; }
+                .modern-acc-item.open .acc-body { max-height: 1000px; padding: 0 24px 24px; opacity: 1; }
+                .acc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+                .acc-skill-card { background: rgba(255, 255, 255, 0.03); padding: 16px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+                .acc-skill-icon { font-size: 2rem; }
+                .acc-skill-name { font-size: 0.75rem; font-weight: 700; color: var(--text-secondary); }
+
+                /* Core Skills Section */
+                .core-skills-redesign { margin-top: 100px; max-width: 900px; margin-left: auto; margin-right: auto; }
+                .core-header-wrap { display: flex; align-items: center; gap: 24px; margin-bottom: 48px; }
+                .core-header-wrap .line { flex-grow: 1; height: 1px; background: linear-gradient(to right, transparent, var(--accent), transparent); opacity: 0.3; }
+                .core-header-wrap .title { font-size: 1.5rem; font-weight: 800; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.2em; white-space: nowrap; }
+                .core-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+                .core-card { display: flex; align-items: center; gap: 16px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); padding: 24px; border-radius: 20px; transition: all 0.3s ease; }
+                .core-card:hover { background: rgba(255, 255, 255, 0.04); border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5); }
+                .card-check { width: 20px; height: 20px; color: var(--accent); flex-shrink: 0; }
+                .card-text { font-size: 1rem; font-weight: 600; color: var(--text-secondary); }
+                .core-card:hover .card-text { color: var(--text-primary); }
+
+                /* Collapsible Logic */
+                .core-grid-container { 
+                    max-height: 0; 
+                    opacity: 0; 
+                    overflow: hidden; 
+                    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+                    margin-bottom: 0;
+                }
+                .core-grid-container.expanded { 
+                    max-height: 800px; 
+                    opacity: 1; 
+                    margin-bottom: 40px;
+                    padding-top: 20px;
+                }
+
+                .core-view-more { 
+                    display: flex; 
+                    justify-content: center; 
+                    margin-top: 24px; 
+                }
+                .btn-view-skills {
+                    background: rgba(255, 255, 255, 0.03);
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    color: var(--text-primary);
+                    padding: 12px 32px;
+                    border-radius: 99px;
+                    font-weight: 700;
+                    font-size: 0.85rem;
+                    text-transform: uppercase;
+                    letter-spacing: 0.1rem;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    transition: all 0.3s ease;
+                }
+                .btn-view-skills:hover {
+                    background: var(--accent-faded);
+                    border-color: var(--accent);
+                    box-shadow: 0 0 20px var(--accent-faded);
                     transform: translateY(-2px);
                 }
-                .skill-name {
-                    font-weight: 500;
-                    margin-top: 4px;
-                    transition: color 0.2s ease;
+                .arrow {
+                    width: 8px;
+                    height: 8px;
+                    border-right: 2px solid currentColor;
+                    border-bottom: 2px solid currentColor;
+                    transform: rotate(45deg);
+                    margin-top: -4px;
+                    transition: transform 0.3s ease;
                 }
-                .skill-list-card:hover .skill-name {
-                    color: var(--text-primary);
-                }
-                .skills-icon {
-                    display: flex; justify-content: center; align-items: center; line-height: 1; 
-                    color: var(--text-primary); 
-                }
-                .skills-icon img, .skills-icon svg { width: 1em; height: 1em; object-fit: contain; }
+                .arrow.up { transform: rotate(-135deg); margin-top: 4px; }
 
-                /* CORE SKILLS - Minimal changes to maintain existing style */
-                .core-skills-grid {
-                    display: grid;
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 24px;
-                    max-width: 900px;
-                    margin: 0 auto;
+                @media (max-width: 991px) {
+                    .skills-split-layout { display: none; }
                 }
-                .core-skill-card {
-                    background: var(--bg-card);
-                    border: 1px solid rgba(255, 255, 255, 0.08);
-                    border-radius: 12px;
-                    padding: 20px;
-                    display: flex;
-                    align-items: center;
-                    font-size: 1rem;
-                    color: var(--text-secondary);
-                    transition: all 0.2s ease;
-                }
-                .core-skill-card:hover {
-                    border-color: #2dd4bf;
-                    color: var(--text-primary);
-                    transform: scale(1.02);
-                }
-                
-                @media (max-width: 767px) {
-                    .skills-section { 
-                        padding-top: 60px !important; 
-                        padding-bottom: 60px !important; 
-                        padding-left: 16px !important;
-                        padding-right: 16px !important;
-                    }
-                    .core-skills-grid { grid-template-columns: 1fr !important; }
-                }
-                @media (min-width: 768px) {
-                    .skills-section {
-                        padding-left: 32px !important;
-                        padding-right: 32px !important;
-                    }
+                @media (max-width: 768px) {
+                    .core-grid { grid-template-columns: 1fr; }
+                    .core-header-wrap .title { font-size: 1.25rem; }
                 }
             `}</style>
         </section>

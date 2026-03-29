@@ -29,23 +29,6 @@ export default function Hero() {
                 padding: '80px 0',
             }}
         >
-            {/* Ambient Glow */}
-            <div
-                style={{
-                    position: 'absolute', top: '25%', left: -128,
-                    width: 384, height: 384, borderRadius: '50%',
-                    opacity: 0.2, filter: 'blur(120px)',
-                    background: 'var(--accent)', pointerEvents: 'none',
-                }}
-            />
-            <div
-                style={{
-                    position: 'absolute', bottom: '25%', right: -128,
-                    width: 320, height: 320, borderRadius: '50%',
-                    opacity: 0.1, filter: 'blur(100px)',
-                    background: 'var(--accent-secondary)', pointerEvents: 'none',
-                }}
-            />
 
             <div className="container" style={{ position: 'relative', zIndex: 10, textAlign: 'center' }}>
                 {/* Label */}
@@ -68,18 +51,22 @@ export default function Hero() {
 
                 {/* Name */}
                 <h1
-                    className="text-gradient"
+                    className={loaded ? 'hero-revealed' : 'hero-hidden'}
                     style={{
-                        fontSize: 'clamp(2.5rem, 8vw, 4.5rem)', 
+                        fontSize: 'clamp(3rem, 10vw, 6rem)', 
                         fontWeight: 900,
                         textTransform: 'uppercase',
-                        lineHeight: 1.1,
-                        letterSpacing: '-1px',
+                        lineHeight: 1,
+                        letterSpacing: '-0.02em',
                         marginBottom: 32,
-                        transition: 'all 0.7s ease 0.15s',
+                        transition: 'all 1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s',
                         opacity: loaded ? 1 : 0,
-                        transform: loaded ? 'translateY(0)' : 'translateY(24px)',
-                        paddingBottom: '8px'
+                        transform: loaded ? 'translateY(0)' : 'translateY(40px)',
+                        background: 'linear-gradient(to bottom, #fff 20%, var(--accent) 100%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                        filter: 'drop-shadow(0 0 20px var(--accent-faded))',
                     }}
                 >
                     Dharshan
@@ -163,12 +150,16 @@ export default function Hero() {
                 </div>
             </div>
 
-            <style>{`
+             <style>{`
+                @keyframes shine {
+                    to { background-position: 200% center; }
+                }
                 @media (max-width: 767px) {
                     .hero-section { padding: 60px 0 !important; }
                     .hero-ctas { flex-direction: column !important; gap: 12px !important; align-items: center !important; }
                     .hero-btn { width: 100% !important; max-width: 280px !important; }
                     .hero-scroll-indicator { margin-top: 40px !important; }
+                    h1 { font-size: 3rem !important; letter-spacing: 0.1em !important; }
                 }
             `}</style>
         </section>

@@ -73,23 +73,13 @@ export default function About() {
                             <div
                                 key={i}
                                 className="reveal-stagger about-stat-card"
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.borderColor = 'var(--accent)';
-                                    e.currentTarget.style.transform = 'translateY(-4px)';
-                                    e.currentTarget.style.boxShadow = '0 8px 30px var(--accent-glow)';
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.borderColor = 'var(--border)';
-                                    e.currentTarget.style.transform = 'translateY(0)';
-                                    e.currentTarget.style.boxShadow = 'none';
-                                }}
                             >
-                                <p style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--accent)', marginBottom: 4 }}>
+                                <span className="stat-num">
                                     {stat.value.includes('+') ? <CountUp target={stat.value.replace('+', '')} suffix="+" /> : stat.value}
-                                </p>
-                                <p style={{ fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-secondary)' }}>
+                                </span>
+                                <span className="stat-text">
                                     {stat.label}
-                                </p>
+                                </span>
                             </div>
                         ))}
                     </div>
@@ -98,37 +88,85 @@ export default function About() {
 
             <style>{`
                 .about-desc-container {
-                    max-width: 650px;
+                    max-width: 700px;
                     margin: 0 auto;
                     text-align: center;
+                    margin-bottom: 60px;
                 }
                 .about-stats-grid {
                     display: grid;
                     grid-template-columns: repeat(4, 1fr);
-                    gap: 20px;
-                    max-width: 800px;
+                    gap: 24px;
+                    max-width: 1000px;
                     margin: 0 auto;
                 }
                 .about-stat-card {
+                    position: relative;
                     text-align: center;
-                    padding: 32px;
-                    border-radius: 12px;
-                    background: var(--bg-card);
-                    border: 1px solid var(--border);
+                    padding: 40px 24px;
+                    border-radius: 24px;
+                    background: rgba(255, 255, 255, 0.02);
+                    border: 1px solid rgba(255, 255, 255, 0.05);
+                    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                    overflow: hidden;
+                }
+                .about-stat-card::before {
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    background: radial-gradient(circle at top right, var(--accent-faded), transparent 70%);
+                    opacity: 0;
+                    transition: opacity 0.4s ease;
+                }
+                .about-stat-card:hover {
+                    background: rgba(255, 255, 255, 0.04);
+                    border-color: var(--accent);
+                    transform: translateY(-8px);
+                    box-shadow: 0 20px 40px -20px rgba(0,0,0,0.5);
+                }
+                .about-stat-card:hover::before {
+                    opacity: 1;
+                }
+                .stat-num {
+                    font-size: 2.25rem;
+                    font-weight: 800;
+                    color: var(--text-primary);
+                    margin-bottom: 8px;
+                    display: block;
                     transition: all 0.3s ease;
                 }
+                .about-stat-card:hover .stat-num {
+                    color: var(--accent);
+                    text-shadow: 0 0 8px var(--accent-faded);
+                }
+                .stat-text {
+                    font-size: 0.75rem;
+                    font-weight: 700;
+                    letter-spacing: 0.15em;
+                    text-transform: uppercase;
+                    color: var(--text-muted);
+                    transition: color 0.3s ease;
+                }
+                .about-stat-card:hover .stat-text {
+                    color: var(--text-primary);
+                }
+                @media (max-width: 991px) {
+                    .about-stats-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+                }
                 @media (max-width: 767px) {
-                    .about-section { padding-top: 60px !important; padding-bottom: 60px !important; }
+                    .about-section { padding: 80px 0 !important; }
                     .about-desc-container {
+                        max-width: 100%;
+                        padding: 0 20px;
+                        margin-bottom: 40px;
                         text-align: center;
                     }
-                    .about-paragraph {
-                        text-align: center;
-                        hyphens: auto;
-                        word-break: break-word;
+                    .about-desc-container p {
+                        font-size: 0.9375rem !important;
+                        line-height: 1.7 !important;
                     }
-                    .about-stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 16px !important; }
-                    .about-stat-card { padding: 20px !important; }
+                    .about-stat-card { padding: 32px 16px; border-radius: 20px; }
+                    .stat-num { font-size: 1.75rem; }
                 }
             `}</style>
         </section>

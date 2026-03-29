@@ -2,7 +2,7 @@
 
 /* ───────────────────── Design Tokens ───────────────────── */
 :root {
-  --bg-primary: #050505;
+  --bg-primary: #000000;
   /* Pure void */
   --bg-card: rgba(255, 255, 255, 0.02);
   /* Ghostly glass */
